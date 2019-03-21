@@ -54,7 +54,7 @@ namespace Test
                 }
 
                 cmd.Execute("select * from kbb");
-                var es = cmd.FetchBatch(100);
+                var es = cmd.Fetch(100);
                 Console.WriteLine(es.ToJson(true));
 
                 var list2 = cmd.FetchMany(100);

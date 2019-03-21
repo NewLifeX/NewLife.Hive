@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using NewLife.Data;
 using NewLife.Hive2;
@@ -76,10 +75,13 @@ namespace NewLife.Hive
         /// <summary>批量获取数据</summary>
         /// <param name="size"></param>
         /// <returns></returns>
-        public DbTable FetchBatch(Int32 size)
+        public DbTable Fetch(Int32 size)
         {
             var cs = GetSchema()?.Columns;
             if (cs == null || cs.Count == 0) return null;
+
+            // V5根据行获取数据，不支持
+            if (Version <= TProtocolVersion.V5) throw new NotSupportedException();
 
             // 获取列信息
             var dt = new DbTable
@@ -88,7 +90,7 @@ namespace NewLife.Hive
             };
 
             //  获取数据
-            var set = Fetch(size);
+            var set = FetchData(size);
             if (set?.Columns != null && set.Columns.Count > 0)
             {
                 var cols = new List<IList>();
@@ -127,63 +129,6 @@ namespace NewLife.Hive
             return dt;
         }
 
-        public List<ExpandoObject> FetchMany(Int32 size)
-        {
-            var list = new List<ExpandoObject>();
-            var rowSet = Fetch(size);
-            if (rowSet == null) return list;
-
-            var names = GetColumnNames();
-            GetRows(list, names, rowSet);
-
-            return list;
-        }
-
-        public ExpandoObject FetchOne() => FetchMany(1).FirstOrDefault();
-
-        #region 获取行
-        private void GetRows(List<ExpandoObject> list, List<String> names, TRowSet rowSet)
-        {
-            if (Version <= TProtocolVersion.V5)
-            {
-                list.AddRange(GetRowByRowBase(names, rowSet));
-            }
-            else if (!names.IsEmpty() && !rowSet.Columns.IsEmpty())
-            {
-                list.AddRange(GetRowByColumnBase(rowSet.Columns, names));
-            }
-        }
-
-        private IEnumerable<ExpandoObject> GetRowByRowBase(List<String> names, TRowSet rowSet)
-        {
-            return rowSet.Rows.Select(j =>
-            {
-                var obj = new ExpandoObject();
-                var dict = obj as IDictionary<String, Object>;
-                for (var i = 0; i < j.ColVals.Count; i++)
-                {
-                    dict.Add(names[i], GetrValue(j.ColVals[i]));
-                }
-                return obj;
-            });
-        }
-
-        private IEnumerable<ExpandoObject> GetRowByColumnBase(List<TColumn> columns, List<String> columnNames)
-        {
-            var list = columns.Select(GetrValue).ToArray();
-            var totalRows = list[0].Count;
-            for (var i = 0; i < totalRows; i++)
-            {
-                var obj = new ExpandoObject();
-                var dict = obj as IDictionary<String, Object>;
-                for (var j = 0; j < columnNames.Count; j++)
-                {
-                    dict.Add(columnNames[j], list[j][i]);
-                }
-                yield return obj;
-            }
-        }
-
         private IList GetrValue(TColumn value)
         {
             if (value.__isset.stringVal)
@@ -204,28 +149,7 @@ namespace NewLife.Hive
                 return null;
         }
 
-        private Object GetrValue(TColumnValue value)
-        {
-            if (value.__isset.stringVal)
-                return value.StringVal.Value;
-            else if (value.__isset.i32Val)
-                return value.I32Val.Value;
-            else if (value.__isset.boolVal)
-                return value.BoolVal.Value;
-            else if (value.__isset.doubleVal)
-                return value.DoubleVal.Value;
-            else if (value.__isset.byteVal)
-                return value.ByteVal.Value;
-            else if (value.__isset.i64Val)
-                return value.I64Val.Value;
-            else if (value.__isset.i16Val)
-                return value.I16Val.Value;
-            else
-                return null;
-        }
-        #endregion
-
-        public TRowSet Fetch(Int32 count = Int32.MaxValue)
+        public TRowSet FetchData(Int32 count = Int32.MaxValue)
         {
             if (_Operation == null || !_Operation.HasResultSet) return null;
 
@@ -240,8 +164,6 @@ namespace NewLife.Hive
 
             return rs.Results;
         }
-
-        private List<String> GetColumnNames() => GetSchema()?.Columns.Select(i => i.ColumnName).ToList();
 
         public TTableSchema GetSchema()
         {
