@@ -32,6 +32,7 @@ namespace Test
         {
             var line = File.ReadLines("account.txt").First();
             var ss = line.Split(",");
+            ss = ss.Select(e => e.Trim()).ToArray();
 
             using (var conn = new HiveConnection(ss[0], ss[1].ToInt(), ss[2], ss[3]))
             {
