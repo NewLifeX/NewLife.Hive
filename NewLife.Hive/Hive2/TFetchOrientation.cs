@@ -1,6 +1,6 @@
 namespace NewLife.Hive2
 {
-    public enum FetchOrientation
+    public enum TFetchOrientation
     {
         FETCH_NEXT = 0,
         FETCH_PRIOR = 1,

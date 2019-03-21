@@ -17,9 +17,9 @@ namespace NewLife.Hive2
 
         /// <summary>
         /// 
-        /// <seealso cref="ProtocolVersion"/>
+        /// <seealso cref="TProtocolVersion"/>
         /// </summary>
-        public ProtocolVersion Client_protocol { get; set; }
+        public TProtocolVersion Client_protocol { get; set; }
 
         public String Username
         {
@@ -74,10 +74,10 @@ namespace NewLife.Hive2
 
         public TOpenSessionReq()
         {
-            Client_protocol = ProtocolVersion.V6;
+            Client_protocol = TProtocolVersion.V6;
         }
 
-        public TOpenSessionReq(ProtocolVersion client_protocol) : this()
+        public TOpenSessionReq(TProtocolVersion client_protocol) : this()
         {
             Client_protocol = client_protocol;
         }
@@ -99,7 +99,7 @@ namespace NewLife.Hive2
                     case 1:
                         if (field.Type == TType.I32)
                         {
-                            Client_protocol = (ProtocolVersion)iprot.ReadI32();
+                            Client_protocol = (TProtocolVersion)iprot.ReadI32();
                             isset_client_protocol = true;
                         }
                         else

@@ -18,9 +18,9 @@ namespace NewLife.Hive2
 
         /// <summary>
         /// 
-        /// <seealso cref="ProtocolVersion"/>
+        /// <seealso cref="TProtocolVersion"/>
         /// </summary>
-        public ProtocolVersion ServerProtocolVersion { get; set; }
+        public TProtocolVersion ServerProtocolVersion { get; set; }
 
         public TSessionHandle SessionHandle
         {
@@ -61,10 +61,10 @@ namespace NewLife.Hive2
 
         public TOpenSessionResp()
         {
-            ServerProtocolVersion = ProtocolVersion.V6;
+            ServerProtocolVersion = TProtocolVersion.V6;
         }
 
-        public TOpenSessionResp(TStatus status, ProtocolVersion serverProtocolVersion) : this()
+        public TOpenSessionResp(TStatus status, TProtocolVersion serverProtocolVersion) : this()
         {
             Status = status;
             ServerProtocolVersion = serverProtocolVersion;
@@ -100,7 +100,7 @@ namespace NewLife.Hive2
                     case 2:
                         if (field.Type == TType.I32)
                         {
-                            ServerProtocolVersion = (ProtocolVersion)iprot.ReadI32();
+                            ServerProtocolVersion = (TProtocolVersion)iprot.ReadI32();
                             isset_serverProtocolVersion = true;
                         }
                         else

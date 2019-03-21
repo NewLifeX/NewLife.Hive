@@ -2,7 +2,7 @@
 namespace NewLife.Hive2
 {
     /// <summary>–≠“È∞Ê±æ</summary>
-    public enum ProtocolVersion
+    public enum TProtocolVersion
     {
         V1 = 0,
         V2 = 1,

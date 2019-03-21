@@ -15,18 +15,18 @@ namespace NewLife.Hive2
 
         /// <summary>
         /// 
-        /// <seealso cref="FetchOrientation"/>
+        /// <seealso cref="TFetchOrientation"/>
         /// </summary>
-        public FetchOrientation Orientation { get; set; }
+        public TFetchOrientation Orientation { get; set; }
 
         public Int64 MaxRows { get; set; }
 
         public TFetchResultsReq()
         {
-            Orientation = FetchOrientation.FETCH_NEXT;
+            Orientation = TFetchOrientation.FETCH_NEXT;
         }
 
-        public TFetchResultsReq(TOperationHandle operationHandle, FetchOrientation orientation, Int64 maxRows) : this()
+        public TFetchResultsReq(TOperationHandle operationHandle, TFetchOrientation orientation, Int64 maxRows) : this()
         {
             OperationHandle = operationHandle;
             Orientation = orientation;
@@ -64,7 +64,7 @@ namespace NewLife.Hive2
                     case 2:
                         if (field.Type == TType.I32)
                         {
-                            Orientation = (FetchOrientation)iprot.ReadI32();
+                            Orientation = (TFetchOrientation)iprot.ReadI32();
                             isset_orientation = true;
                         }
                         else

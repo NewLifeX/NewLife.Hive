@@ -24,11 +24,11 @@ namespace NewLife.Hive
         private TCLIService.Client _Client;
         private TSessionHandle _Session;
 
-        public ProtocolVersion Version { get; }
+        public TProtocolVersion Version { get; }
         #endregion
 
         #region 构造
-        public HiveConnection(String host, Int32 port, String userName = "None", String password = "None", ProtocolVersion version = ProtocolVersion.V7)
+        public HiveConnection(String host, Int32 port, String userName = "None", String password = "None", TProtocolVersion version = TProtocolVersion.V7)
         {
             var socket = new TSocket(host, port);
             _Transport = new TSaslClientTransport(socket, userName, password);

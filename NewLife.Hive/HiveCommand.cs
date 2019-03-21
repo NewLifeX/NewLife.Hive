@@ -16,11 +16,11 @@ namespace NewLife.Hive
         private TOperationHandle _Operation;
         private TTableSchema _LastSchema;
 
-        public ProtocolVersion Version { get; }
+        public TProtocolVersion Version { get; }
         #endregion
 
         #region 构造
-        public HiveCommand(TSessionHandle session, TCLIService.Client client, ProtocolVersion version = ProtocolVersion.V7)
+        public HiveCommand(TSessionHandle session, TCLIService.Client client, TProtocolVersion version = TProtocolVersion.V7)
         {
             _Session = session;
             _Client = client;
@@ -87,7 +87,7 @@ namespace NewLife.Hive
         #region GetRows
         private void GetRows(List<ExpandoObject> result, List<String> names, TRowSet rowSet)
         {
-            if (Version <= ProtocolVersion.V5)
+            if (Version <= TProtocolVersion.V5)
             {
                 result.AddRange(GetRowByRowBase(names, rowSet));
             }
@@ -175,7 +175,7 @@ namespace NewLife.Hive
             var req = new TFetchResultsReq()
             {
                 MaxRows = count,
-                Orientation = FetchOrientation.FETCH_NEXT,
+                Orientation = TFetchOrientation.FETCH_NEXT,
                 OperationHandle = _Operation,
             };
             var rs = _Client.FetchResults(req);
