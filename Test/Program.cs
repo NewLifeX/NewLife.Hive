@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using NewLife.Hive;
-using NewLife.Hive2;
 using NewLife.Log;
-using NewLife.Serialization;
 
 namespace Test
 {
@@ -39,51 +38,34 @@ namespace Test
                 var cmd = conn.CreateCommand();
                 cmd.Execute("use default");
 
-                var list = cmd.FetchMany(100);
-                if (!list.IsEmpty())
-                {
-                    var dict = list[0] as IDictionary<String, Object>;
-                    foreach (var key in dict.Keys)
-                    {
-                        Console.WriteLine(key + dict[key].ToString());
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("no result");
-                }
-
                 cmd.Execute("select * from kbb");
-                var es = cmd.Fetch(100);
-                Console.WriteLine(es.ToJson(true));
-
-                var list2 = cmd.FetchMany(100);
-                if (!list2.IsEmpty())
+                var dt = cmd.Fetch(100);
+                if (dt != null)
                 {
-                    var dic = list2[0] as IDictionary<String, Object>;
-                    foreach (var item in dic)
+                    foreach (var item in dt.Columns)
                     {
-                        Console.Write(item.Key + "\t");
+                        Console.Write(item + ",");
                     }
                     Console.WriteLine();
 
-                    foreach (IDictionary<String, Object> row in list2)
+                    foreach (var row in dt.Rows)
                     {
-                        foreach (var item in row)
-                        {
-                            Console.Write(item.Value + "\t");
-                        }
-                        Console.WriteLine();
+                        Console.WriteLine(row.Join(","));
                     }
-                }
-                else
-                {
-                    Console.WriteLine("no result");
                 }
 
                 for (var i = 0; i < 100_000; i++)
                 {
                     var sql = $"insert into kbb (id, name) values ({i + 1},'{DateTime.Now.ToFullString()}')";
+                    var sb = new StringBuilder();
+                    sb.Append(sql);
+                    for (var k = 0; k < 10; k++)
+                    {
+                        sb.Append(",");
+                        sb.Append($"({i + 1},'{DateTime.Now.ToFullString()}')");
+                    }
+                    sql = sb.ToString();
+
                     XTrace.WriteLine(sql);
                     cmd.Execute(sql);
                 }

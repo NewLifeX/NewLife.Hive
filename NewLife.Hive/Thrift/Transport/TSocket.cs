@@ -5,7 +5,7 @@ namespace Thrift.Transport
 {
     public class TSocket : TStreamTransport
     {
-        private Int32 timeout;
+        private Int32 _Timeout;
 
         private Boolean _IsDisposed;
 
@@ -15,36 +15,21 @@ namespace Thrift.Transport
         {
             get
             {
-                if (TcpClient == null)
+                if (Client == null)
                 {
                     return false;
                 }
-                return TcpClient.Connected;
+                return Client.Connected;
             }
         }
 
         public Int32 Port { get; private set; }
 
-        public TcpClient TcpClient { get; private set; }
-
-        public Int32 Timeout
-        {
-            set
-            {
-                var tcpClient = TcpClient;
-                var num = value;
-                var num1 = num;
-                timeout = num;
-                var num2 = num1;
-                var num3 = num2;
-                TcpClient.SendTimeout = num2;
-                tcpClient.ReceiveTimeout = num3;
-            }
-        }
+        public TcpClient Client { get; private set; }
 
         public TSocket(TcpClient client)
         {
-            TcpClient = client;
+            Client = client;
             if (IsOpen)
             {
                 inputStream = client.GetStream();
@@ -60,17 +45,17 @@ namespace Thrift.Transport
         {
             Host = host;
             Port = port;
-            this.timeout = timeout;
+            this._Timeout = timeout;
             InitSocket();
         }
 
         public override void Close()
         {
             base.Close();
-            if (TcpClient != null)
+            if (Client != null)
             {
-                TcpClient.Dispose();
-                TcpClient = null;
+                Client.Dispose();
+                Client = null;
             }
         }
 
@@ -106,9 +91,9 @@ namespace Thrift.Transport
         {
             if (!_IsDisposed && disposing)
             {
-                if (TcpClient != null)
+                if (Client != null)
                 {
-                    ((IDisposable)TcpClient).Dispose();
+                    ((IDisposable)Client).Dispose();
                 }
                 base.Dispose(disposing);
             }
@@ -117,14 +102,10 @@ namespace Thrift.Transport
 
         private void InitSocket()
         {
-            TcpClient = new TcpClient();
-            var tcpClient = TcpClient;
-            var tcpClient1 = TcpClient;
-            var num = timeout;
-            var num1 = num;
-            tcpClient1.SendTimeout = num;
-            tcpClient.ReceiveTimeout = num1;
-            TcpClient.Client.NoDelay = true;
+            var tc = Client = new TcpClient();
+            tc.SendTimeout = _Timeout;
+            tc.ReceiveTimeout = _Timeout;
+            tc.Client.NoDelay = true;
         }
 
         public override void Open()
@@ -141,14 +122,14 @@ namespace Thrift.Transport
             {
                 throw new TTransportException(TTransportException.ExceptionType.NotOpen, "Cannot open without port");
             }
-            if (TcpClient == null)
+            if (Client == null)
             {
                 InitSocket();
             }
-            if (timeout != 0)
+            if (_Timeout != 0)
             {
-                var connectHelper = new ConnectHelper(TcpClient);
-                var t = TcpClient.ConnectAsync(Host, Port);
+                var connectHelper = new ConnectHelper(Client);
+                var t = Client.ConnectAsync(Host, Port);
                 t.Wait();
                 //, new AsyncCallback(TSocket.ConnectCallback), connectHelper);
                 //if ((!asyncResult.AsyncWaitHandle.WaitOne(this.timeout) ? true : !this.client.Connected))
@@ -171,10 +152,10 @@ namespace Thrift.Transport
             }
             else
             {
-                TcpClient.ConnectAsync(Host, Port).Wait();
+                Client.ConnectAsync(Host, Port).Wait();
             }
-            inputStream = TcpClient.GetStream();
-            outputStream = TcpClient.GetStream();
+            inputStream = Client.GetStream();
+            outputStream = Client.GetStream();
         }
 
         private class ConnectHelper

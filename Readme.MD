@@ -1,4 +1,4 @@
-新生命团队基础框架X组件，包括`日志、数据库、网络、RPC、序列化、缓存、Windows服务、多线程`等模块，支持`.Net Framework/.netstandard/Mono`。
+﻿新生命团队基础框架X组件，包括`日志、数据库、网络、RPC、序列化、缓存、Windows服务、多线程`等模块，支持`.Net Framework/.netstandard/Mono`。
 
 2002~2018，成千上万兄弟们努力的见证！  
 

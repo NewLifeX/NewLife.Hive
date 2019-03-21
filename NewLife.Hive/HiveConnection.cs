@@ -41,7 +41,11 @@ namespace NewLife.Hive
         {
             base.OnDispose(disposing);
 
-            Close();
+            try
+            {
+                Close();
+            }
+            catch { }
 
             _Client = null;
             _Transport = null;
