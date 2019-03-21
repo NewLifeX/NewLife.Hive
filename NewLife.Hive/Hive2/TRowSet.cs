@@ -5,10 +5,7 @@ using Thrift.Protocol;
 
 namespace NewLife.Hive2
 {
-
-#if !SILVERLIGHT
     [Serializable]
-#endif
     public partial class TRowSet : TBase
     {
         private List<TColumn> _columns;
@@ -32,17 +29,13 @@ namespace NewLife.Hive2
 
 
         public Isset __isset;
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public struct Isset
         {
             public Boolean columns;
         }
 
-        public TRowSet()
-        {
-        }
+        public TRowSet() { }
 
         public TRowSet(Int64 startRowOffset, List<TRow> rows) : this()
         {
@@ -190,7 +183,5 @@ namespace NewLife.Hive2
             sb.Append(")");
             return sb.ToString();
         }
-
     }
-
 }

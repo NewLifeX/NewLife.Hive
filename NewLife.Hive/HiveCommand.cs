@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using NewLife.Data;
 using NewLife.Hive2;
 
 namespace NewLife.Hive
@@ -72,13 +73,67 @@ namespace NewLife.Hive
         #endregion
 
         #region 查询
+        /// <summary>批量获取数据</summary>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        public DbTable FetchBatch(Int32 size)
+        {
+            var cs = GetSchema()?.Columns;
+            if (cs == null || cs.Count == 0) return null;
+
+            // 获取列信息
+            var dt = new DbTable
+            {
+                Columns = cs.Select(i => i.ColumnName).ToArray()
+            };
+
+            //  获取数据
+            var set = Fetch(size);
+            if (set?.Columns != null && set.Columns.Count > 0)
+            {
+                var cols = new List<IList>();
+                foreach (var item in set.Columns)
+                {
+                    cols.Add(GetrValue(item));
+                }
+
+                var rowCount = cols[0].Count;
+                dt.Rows = new List<Object[]>(rowCount);
+                if (rowCount > 0)
+                {
+                    // 修补类型
+                    if (dt.Types == null || dt.Types.Length != cols.Count)
+                    {
+                        dt.Types = new Type[cols.Count];
+                        for (var k = 0; k < cols.Count; k++)
+                        {
+                            dt.Types[k] = cols[k][0]?.GetType();
+                        }
+                    }
+
+                    // 遍历所有行
+                    for (var i = 0; i < rowCount; i++)
+                    {
+                        var row = new Object[cols.Count];
+                        for (var k = 0; k < cols.Count; k++)
+                        {
+                            row[k] = cols[k][i];
+                        }
+                        dt.Rows.Add(row);
+                    }
+                }
+            }
+
+            return dt;
+        }
+
         public List<ExpandoObject> FetchMany(Int32 size)
         {
             var list = new List<ExpandoObject>();
-            var names = GetColumnNames();
             var rowSet = Fetch(size);
             if (rowSet == null) return list;
 
+            var names = GetColumnNames();
             GetRows(list, names, rowSet);
 
             return list;

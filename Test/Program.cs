@@ -5,6 +5,7 @@ using System.Linq;
 using NewLife.Hive;
 using NewLife.Hive2;
 using NewLife.Log;
+using NewLife.Serialization;
 
 namespace Test
 {
@@ -53,6 +54,9 @@ namespace Test
                 }
 
                 cmd.Execute("select * from kbb");
+                var es = cmd.FetchBatch(100);
+                Console.WriteLine(es.ToJson(true));
+
                 var list2 = cmd.FetchMany(100);
                 if (!list2.IsEmpty())
                 {

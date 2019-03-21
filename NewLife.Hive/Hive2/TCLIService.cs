@@ -699,21 +699,11 @@ namespace NewLife.Hive2
 
             public TFetchResultsResp FetchResults(TFetchResultsReq req)
             {
-#if !SILVERLIGHT
                 send_FetchResults(req);
                 return recv_FetchResults();
-
-#else
-        var asyncResult = Begin_FetchResults(null, null, req);
-        return End_FetchResults(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_FetchResults(AsyncCallback callback, object state, TFetchResultsReq req)
-#else
+
             public void send_FetchResults(TFetchResultsReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("FetchResults", TMessageType.Call, seqid_));
                 var args = new FetchResults_args
@@ -722,11 +712,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TFetchResultsResp recv_FetchResults()
