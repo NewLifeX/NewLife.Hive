@@ -2,47 +2,23 @@ using System;
 
 namespace Thrift.Protocol
 {
-	public struct TSet
-	{
-		private TType elementType;
+    public struct TSet
+    {
+        public Int32 Count { get; set; }
 
-		private int count;
+        public TType ElementType { get; set; }
 
-		public int Count
-		{
-			get
-			{
-				return count;
-			}
-			set
-			{
-				count = value;
-			}
-		}
+        public TSet(TType elementType, Int32 count)
+        {
+            this = new TSet()
+            {
+                ElementType = elementType,
+                Count = count
+            };
+        }
 
-		public TType ElementType
-		{
-			get
-			{
-				return elementType;
-			}
-			set
-			{
-				elementType = value;
-			}
-		}
-
-		public TSet(TType elementType, int count)
-		{
-			this = new TSet()
-			{
-				elementType = elementType,
-				count = count
-			};
-		}
-
-		public TSet(TList list) : this(list.ElementType, list.Count)
-		{
-		}
-	}
+        public TSet(TList list) : this(list.ElementType, list.Count)
+        {
+        }
+    }
 }

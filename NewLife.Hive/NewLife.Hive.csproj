@@ -11,6 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Thrift\Protocol\TBase64Utils.cs" />
+    <Compile Remove="Thrift\Protocol\TCompactProtocol.cs" />
+    <Compile Remove="Thrift\Protocol\TJSONProtocol.cs" />
+    <Compile Remove="Thrift\Protocol\TMultiplexedProcessor.cs" />
+    <Compile Remove="Thrift\Protocol\TMultiplexedProtocol.cs" />
+    <Compile Remove="Thrift\Protocol\TProtocolDecorator.cs" />
     <Compile Remove="Thrift\Transport\TBufferedTransport.cs" />
     <Compile Remove="Thrift\Transport\TFramedTransport.cs" />
     <Compile Remove="Thrift\Transport\THttpClient.cs" />

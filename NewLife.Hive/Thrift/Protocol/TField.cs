@@ -2,58 +2,22 @@ using System;
 
 namespace Thrift.Protocol
 {
-	public struct TField
-	{
-		private string name;
+    public struct TField
+    {
+        public Int16 ID { get; set; }
 
-		private TType type;
+        public String Name { get; set; }
 
-		private short id;
+        public TType Type { get; set; }
 
-		public short ID
-		{
-			get
-			{
-				return id;
-			}
-			set
-			{
-				id = value;
-			}
-		}
-
-		public string Name
-		{
-			get
-			{
-				return name;
-			}
-			set
-			{
-				name = value;
-			}
-		}
-
-		public TType Type
-		{
-			get
-			{
-				return type;
-			}
-			set
-			{
-				type = value;
-			}
-		}
-
-		public TField(string name, TType type, short id)
-		{
-			this = new TField()
-			{
-				name = name,
-				type = type,
-				id = id
-			};
-		}
-	}
+        public TField(String name, TType type, Int16 id)
+        {
+            this = new TField()
+            {
+                Name = name,
+                Type = type,
+                ID = id
+            };
+        }
+    }
 }

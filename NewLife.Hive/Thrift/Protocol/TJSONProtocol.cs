@@ -73,26 +73,26 @@ namespace Thrift.Protocol
 
         static TJSONProtocol()
         {
-            TJSONProtocol.COMMA = new byte[] { 44 };
-            TJSONProtocol.COLON = new byte[] { 58 };
-            TJSONProtocol.LBRACE = new byte[] { 123 };
-            TJSONProtocol.RBRACE = new byte[] { 125 };
-            TJSONProtocol.LBRACKET = new byte[] { 91 };
-            TJSONProtocol.RBRACKET = new byte[] { 93 };
-            TJSONProtocol.QUOTE = new byte[] { 34 };
-            TJSONProtocol.BACKSLASH = new byte[] { 92 };
-            TJSONProtocol.ZERO = new byte[] { 48 };
-            TJSONProtocol.NAME_BOOL = new byte[] { 116, 102 };
-            TJSONProtocol.NAME_BYTE = new byte[] { 105, 56 };
-            TJSONProtocol.NAME_I16 = new byte[] { 105, 49, 54 };
-            TJSONProtocol.NAME_I32 = new byte[] { 105, 51, 50 };
-            TJSONProtocol.NAME_I64 = new byte[] { 105, 54, 52 };
-            TJSONProtocol.NAME_DOUBLE = new byte[] { 100, 98, 108 };
-            TJSONProtocol.NAME_STRUCT = new byte[] { 114, 101, 99 };
-            TJSONProtocol.NAME_STRING = new byte[] { 115, 116, 114 };
-            TJSONProtocol.NAME_MAP = new byte[] { 109, 97, 112 };
-            TJSONProtocol.NAME_LIST = new byte[] { 108, 115, 116 };
-            TJSONProtocol.NAME_SET = new byte[] { 115, 101, 116 };
+            COMMA = new byte[] { 44 };
+            COLON = new byte[] { 58 };
+            LBRACE = new byte[] { 123 };
+            RBRACE = new byte[] { 125 };
+            LBRACKET = new byte[] { 91 };
+            RBRACKET = new byte[] { 93 };
+            QUOTE = new byte[] { 34 };
+            BACKSLASH = new byte[] { 92 };
+            ZERO = new byte[] { 48 };
+            NAME_BOOL = new byte[] { 116, 102 };
+            NAME_BYTE = new byte[] { 105, 56 };
+            NAME_I16 = new byte[] { 105, 49, 54 };
+            NAME_I32 = new byte[] { 105, 51, 50 };
+            NAME_I64 = new byte[] { 105, 54, 52 };
+            NAME_DOUBLE = new byte[] { 100, 98, 108 };
+            NAME_STRUCT = new byte[] { 114, 101, 99 };
+            NAME_STRING = new byte[] { 115, 116, 114 };
+            NAME_MAP = new byte[] { 109, 97, 112 };
+            NAME_LIST = new byte[] { 108, 115, 116 };
+            NAME_SET = new byte[] { 115, 101, 116 };
         }
 
         public TJSONProtocol(TTransport trans) : base(trans)
@@ -222,15 +222,15 @@ namespace Thrift.Protocol
             {
                 case TType.Bool:
                     {
-                        return TJSONProtocol.NAME_BOOL;
+                        return NAME_BOOL;
                     }
                 case TType.Byte:
                     {
-                        return TJSONProtocol.NAME_BYTE;
+                        return NAME_BYTE;
                     }
                 case TType.Double:
                     {
-                        return TJSONProtocol.NAME_DOUBLE;
+                        return NAME_DOUBLE;
                     }
                 case TType.Void | TType.Double:
                 case TType.Void | TType.Bool | TType.Byte | TType.Double | TType.I16:
@@ -240,35 +240,35 @@ namespace Thrift.Protocol
                     }
                 case TType.I16:
                     {
-                        return TJSONProtocol.NAME_I16;
+                        return NAME_I16;
                     }
                 case TType.I32:
                     {
-                        return TJSONProtocol.NAME_I32;
+                        return NAME_I32;
                     }
                 case TType.I64:
                     {
-                        return TJSONProtocol.NAME_I64;
+                        return NAME_I64;
                     }
                 case TType.String:
                     {
-                        return TJSONProtocol.NAME_STRING;
+                        return NAME_STRING;
                     }
                 case TType.Struct:
                     {
-                        return TJSONProtocol.NAME_STRUCT;
+                        return NAME_STRUCT;
                     }
                 case TType.Map:
                     {
-                        return TJSONProtocol.NAME_MAP;
+                        return NAME_MAP;
                     }
                 case TType.Set:
                     {
-                        return TJSONProtocol.NAME_SET;
+                        return NAME_SET;
                     }
                 case TType.List:
                     {
-                        return TJSONProtocol.NAME_LIST;
+                        return NAME_LIST;
                     }
                 default:
                     {
@@ -392,11 +392,11 @@ namespace Thrift.Protocol
         public override TField ReadFieldBegin()
         {
             TField typeIDForTypeName = new TField();
-            if (reader.Peek() != TJSONProtocol.RBRACE[0])
+            if (reader.Peek() != RBRACE[0])
             {
                 typeIDForTypeName.ID = (short)ReadJSONInteger();
                 ReadJSONObjectStart();
-                typeIDForTypeName.Type = TJSONProtocol.GetTypeIDForTypeName(ReadJSONString(false));
+                typeIDForTypeName.Type = GetTypeIDForTypeName(ReadJSONString(false));
             }
             else
             {
@@ -427,14 +427,14 @@ namespace Thrift.Protocol
 
         private void ReadJSONArrayEnd()
         {
-            ReadJSONSyntaxChar(TJSONProtocol.RBRACKET);
+            ReadJSONSyntaxChar(RBRACKET);
             PopContext();
         }
 
         private void ReadJSONArrayStart()
         {
             context.Read();
-            ReadJSONSyntaxChar(TJSONProtocol.LBRACKET);
+            ReadJSONSyntaxChar(LBRACKET);
             PushContext(new TJSONProtocol.JSONListContext(this));
         }
 
@@ -465,11 +465,11 @@ namespace Thrift.Protocol
         {
             double num;
             context.Read();
-            if (reader.Peek() != TJSONProtocol.QUOTE[0])
+            if (reader.Peek() != QUOTE[0])
             {
                 if (context.EscapeNumbers())
                 {
-                    ReadJSONSyntaxChar(TJSONProtocol.QUOTE);
+                    ReadJSONSyntaxChar(QUOTE);
                 }
                 try
                 {
@@ -496,12 +496,12 @@ namespace Thrift.Protocol
             context.Read();
             if (context.EscapeNumbers())
             {
-                ReadJSONSyntaxChar(TJSONProtocol.QUOTE);
+                ReadJSONSyntaxChar(QUOTE);
             }
             string str = ReadJSONNumericChars();
             if (context.EscapeNumbers())
             {
-                ReadJSONSyntaxChar(TJSONProtocol.QUOTE);
+                ReadJSONSyntaxChar(QUOTE);
             }
             try
             {
@@ -526,14 +526,14 @@ namespace Thrift.Protocol
 
         private void ReadJSONObjectEnd()
         {
-            ReadJSONSyntaxChar(TJSONProtocol.RBRACE);
+            ReadJSONSyntaxChar(RBRACE);
             PopContext();
         }
 
         private void ReadJSONObjectStart()
         {
             context.Read();
-            ReadJSONSyntaxChar(TJSONProtocol.LBRACE);
+            ReadJSONSyntaxChar(LBRACE);
             PushContext(new TJSONProtocol.JSONPairContext(this));
         }
 
@@ -544,11 +544,11 @@ namespace Thrift.Protocol
             {
                 context.Read();
             }
-            ReadJSONSyntaxChar(TJSONProtocol.QUOTE);
+            ReadJSONSyntaxChar(QUOTE);
             while (true)
             {
                 byte eSCAPECHARVALS = reader.Read();
-                if (eSCAPECHARVALS == TJSONProtocol.QUOTE[0])
+                if (eSCAPECHARVALS == QUOTE[0])
                 {
                     break;
                 }
@@ -566,10 +566,10 @@ namespace Thrift.Protocol
                     }
                     else
                     {
-                        ReadJSONSyntaxChar(TJSONProtocol.ZERO);
-                        ReadJSONSyntaxChar(TJSONProtocol.ZERO);
+                        ReadJSONSyntaxChar(ZERO);
+                        ReadJSONSyntaxChar(ZERO);
                         trans.ReadAll(tempBuffer, 0, 2);
-                        eSCAPECHARVALS = (byte)((TJSONProtocol.HexVal(tempBuffer[0]) << 4) + TJSONProtocol.HexVal(tempBuffer[1]));
+                        eSCAPECHARVALS = (byte)((HexVal(tempBuffer[0]) << 4) + HexVal(tempBuffer[1]));
                     }
                 }
                 memoryStream.Write(new byte[] { eSCAPECHARVALS }, 0, 1);
@@ -590,7 +590,7 @@ namespace Thrift.Protocol
         {
             TList typeIDForTypeName = new TList();
             ReadJSONArrayStart();
-            typeIDForTypeName.ElementType = TJSONProtocol.GetTypeIDForTypeName(ReadJSONString(false));
+            typeIDForTypeName.ElementType = GetTypeIDForTypeName(ReadJSONString(false));
             typeIDForTypeName.Count = (int)ReadJSONInteger();
             return typeIDForTypeName;
         }
@@ -604,8 +604,8 @@ namespace Thrift.Protocol
         {
             TMap typeIDForTypeName = new TMap();
             ReadJSONArrayStart();
-            typeIDForTypeName.KeyType = TJSONProtocol.GetTypeIDForTypeName(ReadJSONString(false));
-            typeIDForTypeName.ValueType = TJSONProtocol.GetTypeIDForTypeName(ReadJSONString(false));
+            typeIDForTypeName.KeyType = GetTypeIDForTypeName(ReadJSONString(false));
+            typeIDForTypeName.ValueType = GetTypeIDForTypeName(ReadJSONString(false));
             typeIDForTypeName.Count = (int)ReadJSONInteger();
             ReadJSONObjectStart();
             return typeIDForTypeName;
@@ -641,7 +641,7 @@ namespace Thrift.Protocol
         {
             TSet typeIDForTypeName = new TSet();
             ReadJSONArrayStart();
-            typeIDForTypeName.ElementType = TJSONProtocol.GetTypeIDForTypeName(ReadJSONString(false));
+            typeIDForTypeName.ElementType = GetTypeIDForTypeName(ReadJSONString(false));
             typeIDForTypeName.Count = (int)ReadJSONInteger();
             return typeIDForTypeName;
         }
@@ -692,7 +692,7 @@ namespace Thrift.Protocol
         {
             WriteJSONInteger((long)field.ID);
             WriteJSONObjectStart();
-            WriteJSONString(TJSONProtocol.GetTypeNameForTypeID(field.Type));
+            WriteJSONString(GetTypeNameForTypeID(field.Type));
         }
 
         public override void WriteFieldEnd()
@@ -722,20 +722,20 @@ namespace Thrift.Protocol
         private void WriteJSONArrayEnd()
         {
             PopContext();
-            trans.Write(TJSONProtocol.RBRACKET);
+            trans.Write(RBRACKET);
         }
 
         private void WriteJSONArrayStart()
         {
             context.Write();
-            trans.Write(TJSONProtocol.LBRACKET);
+            trans.Write(LBRACKET);
             PushContext(new TJSONProtocol.JSONListContext(this));
         }
 
         private void WriteJSONBase64(byte[] b)
         {
             context.Write();
-            trans.Write(TJSONProtocol.QUOTE);
+            trans.Write(QUOTE);
             int length = (int)b.Length;
             int num = 0;
             while (length >= 3)
@@ -750,7 +750,7 @@ namespace Thrift.Protocol
                 TBase64Utils.encode(b, num, length, tempBuffer, 0);
                 trans.Write(tempBuffer, 0, length + 1);
             }
-            trans.Write(TJSONProtocol.QUOTE);
+            trans.Write(QUOTE);
         }
 
         private void WriteJSONDouble(double num)
@@ -773,12 +773,12 @@ namespace Thrift.Protocol
             bool flag1 = (flag ? true : context.EscapeNumbers());
             if (flag1)
             {
-                trans.Write(TJSONProtocol.QUOTE);
+                trans.Write(QUOTE);
             }
             trans.Write(utf8Encoding.GetBytes(str));
             if (flag1)
             {
-                trans.Write(TJSONProtocol.QUOTE);
+                trans.Write(QUOTE);
             }
         }
 
@@ -789,32 +789,32 @@ namespace Thrift.Protocol
             bool flag = context.EscapeNumbers();
             if (flag)
             {
-                trans.Write(TJSONProtocol.QUOTE);
+                trans.Write(QUOTE);
             }
             trans.Write(utf8Encoding.GetBytes(str));
             if (flag)
             {
-                trans.Write(TJSONProtocol.QUOTE);
+                trans.Write(QUOTE);
             }
         }
 
         private void WriteJSONObjectEnd()
         {
             PopContext();
-            trans.Write(TJSONProtocol.RBRACE);
+            trans.Write(RBRACE);
         }
 
         private void WriteJSONObjectStart()
         {
             context.Write();
-            trans.Write(TJSONProtocol.LBRACE);
+            trans.Write(LBRACE);
             PushContext(new TJSONProtocol.JSONPairContext(this));
         }
 
         private void WriteJSONString(byte[] b)
         {
             context.Write();
-            trans.Write(TJSONProtocol.QUOTE);
+            trans.Write(QUOTE);
             int length = (int)b.Length;
             for (int i = 0; i < length; i++)
             {
@@ -828,33 +828,33 @@ namespace Thrift.Protocol
                     else if (tempBuffer[0] <= 1)
                     {
                         trans.Write(ESCSEQ);
-                        tempBuffer[0] = TJSONProtocol.HexChar((byte)(b[i] >> 4));
-                        tempBuffer[1] = TJSONProtocol.HexChar(b[i]);
+                        tempBuffer[0] = HexChar((byte)(b[i] >> 4));
+                        tempBuffer[1] = HexChar(b[i]);
                         trans.Write(tempBuffer, 0, 2);
                     }
                     else
                     {
-                        trans.Write(TJSONProtocol.BACKSLASH);
+                        trans.Write(BACKSLASH);
                         trans.Write(tempBuffer, 0, 1);
                     }
                 }
-                else if (b[i] != TJSONProtocol.BACKSLASH[0])
+                else if (b[i] != BACKSLASH[0])
                 {
                     trans.Write(b, i, 1);
                 }
                 else
                 {
-                    trans.Write(TJSONProtocol.BACKSLASH);
-                    trans.Write(TJSONProtocol.BACKSLASH);
+                    trans.Write(BACKSLASH);
+                    trans.Write(BACKSLASH);
                 }
             }
-            trans.Write(TJSONProtocol.QUOTE);
+            trans.Write(QUOTE);
         }
 
         public override void WriteListBegin(TList list)
         {
             WriteJSONArrayStart();
-            WriteJSONString(TJSONProtocol.GetTypeNameForTypeID(list.ElementType));
+            WriteJSONString(GetTypeNameForTypeID(list.ElementType));
             WriteJSONInteger((long)list.Count);
         }
 
@@ -866,8 +866,8 @@ namespace Thrift.Protocol
         public override void WriteMapBegin(TMap map)
         {
             WriteJSONArrayStart();
-            WriteJSONString(TJSONProtocol.GetTypeNameForTypeID(map.KeyType));
-            WriteJSONString(TJSONProtocol.GetTypeNameForTypeID(map.ValueType));
+            WriteJSONString(GetTypeNameForTypeID(map.KeyType));
+            WriteJSONString(GetTypeNameForTypeID(map.ValueType));
             WriteJSONInteger((long)map.Count);
             WriteJSONObjectStart();
         }
@@ -895,7 +895,7 @@ namespace Thrift.Protocol
         public override void WriteSetBegin(TSet set)
         {
             WriteJSONArrayStart();
-            WriteJSONString(TJSONProtocol.GetTypeNameForTypeID(set.ElementType));
+            WriteJSONString(GetTypeNameForTypeID(set.ElementType));
             WriteJSONInteger((long)set.Count);
         }
 
@@ -969,7 +969,7 @@ namespace Thrift.Protocol
                     first = false;
                     return;
                 }
-                proto.ReadJSONSyntaxChar(TJSONProtocol.COMMA);
+                proto.ReadJSONSyntaxChar(COMMA);
             }
 
             public override void Write()
@@ -979,7 +979,7 @@ namespace Thrift.Protocol
                     first = false;
                     return;
                 }
-                proto.trans.Write(TJSONProtocol.COMMA);
+                proto.trans.Write(COMMA);
             }
         }
 
@@ -1006,7 +1006,7 @@ namespace Thrift.Protocol
                     colon = true;
                     return;
                 }
-                proto.ReadJSONSyntaxChar((colon ? TJSONProtocol.COLON : TJSONProtocol.COMMA));
+                proto.ReadJSONSyntaxChar((colon ? COLON : COMMA));
                 colon = !colon;
             }
 
@@ -1018,7 +1018,7 @@ namespace Thrift.Protocol
                     colon = true;
                     return;
                 }
-                proto.trans.Write((colon ? TJSONProtocol.COLON : TJSONProtocol.COMMA));
+                proto.trans.Write((colon ? COLON : COMMA));
                 colon = !colon;
             }
         }

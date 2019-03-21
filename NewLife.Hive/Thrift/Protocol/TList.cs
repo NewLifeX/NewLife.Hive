@@ -2,43 +2,19 @@ using System;
 
 namespace Thrift.Protocol
 {
-	public struct TList
-	{
-		private TType elementType;
+    public struct TList
+    {
+        public Int32 Count { get; set; }
 
-		private int count;
+        public TType ElementType { get; set; }
 
-		public int Count
-		{
-			get
-			{
-				return count;
-			}
-			set
-			{
-				count = value;
-			}
-		}
-
-		public TType ElementType
-		{
-			get
-			{
-				return elementType;
-			}
-			set
-			{
-				elementType = value;
-			}
-		}
-
-		public TList(TType elementType, int count)
-		{
-			this = new TList()
-			{
-				elementType = elementType,
-				count = count
-			};
-		}
-	}
+        public TList(TType elementType, Int32 count)
+        {
+            this = new TList()
+            {
+                ElementType = elementType,
+                Count = count
+            };
+        }
+    }
 }

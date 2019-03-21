@@ -2,28 +2,16 @@ using System;
 
 namespace Thrift.Protocol
 {
-	public struct TStruct
-	{
-		private string name;
+    public struct TStruct
+    {
+        public String Name { get; set; }
 
-		public string Name
-		{
-			get
-			{
-				return name;
-			}
-			set
-			{
-				name = value;
-			}
-		}
-
-		public TStruct(string name)
-		{
-			this = new TStruct()
-			{
-				name = name
-			};
-		}
-	}
+        public TStruct(String name)
+        {
+            this = new TStruct()
+            {
+                Name = name
+            };
+        }
+    }
 }

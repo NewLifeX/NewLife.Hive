@@ -41,25 +41,25 @@ namespace Thrift.Protocol
 
         static TCompactProtocol()
         {
-            TCompactProtocol.ANONYMOUS_STRUCT = new TStruct("");
-            TCompactProtocol.TSTOP = new TField("", TType.Stop, 0);
-            TCompactProtocol.ttypeToCompactType = new byte[16];
+            ANONYMOUS_STRUCT = new TStruct("");
+            TSTOP = new TField("", TType.Stop, 0);
+            ttypeToCompactType = new byte[16];
         }
 
         public TCompactProtocol(TTransport trans) : base(trans)
         {
-            TCompactProtocol.ttypeToCompactType[0] = 0;
-            TCompactProtocol.ttypeToCompactType[2] = 1;
-            TCompactProtocol.ttypeToCompactType[3] = 3;
-            TCompactProtocol.ttypeToCompactType[6] = 4;
-            TCompactProtocol.ttypeToCompactType[8] = 5;
-            TCompactProtocol.ttypeToCompactType[10] = 6;
-            TCompactProtocol.ttypeToCompactType[4] = 7;
-            TCompactProtocol.ttypeToCompactType[11] = 8;
-            TCompactProtocol.ttypeToCompactType[15] = 9;
-            TCompactProtocol.ttypeToCompactType[14] = 10;
-            TCompactProtocol.ttypeToCompactType[13] = 11;
-            TCompactProtocol.ttypeToCompactType[12] = 12;
+            ttypeToCompactType[0] = 0;
+            ttypeToCompactType[2] = 1;
+            ttypeToCompactType[3] = 3;
+            ttypeToCompactType[6] = 4;
+            ttypeToCompactType[8] = 5;
+            ttypeToCompactType[10] = 6;
+            ttypeToCompactType[4] = 7;
+            ttypeToCompactType[11] = 8;
+            ttypeToCompactType[15] = 9;
+            ttypeToCompactType[14] = 10;
+            ttypeToCompactType[13] = 11;
+            ttypeToCompactType[12] = 12;
         }
 
         private long bytesToLong(byte[] bytes)
@@ -81,7 +81,7 @@ namespace Thrift.Protocol
 
         private byte getCompactType(TType ttype)
         {
-            return TCompactProtocol.ttypeToCompactType[(int)ttype];
+            return ttypeToCompactType[(int)ttype];
         }
 
         private TType getTType(byte type)
@@ -214,7 +214,7 @@ namespace Thrift.Protocol
             byte num1 = (byte)ReadByte();
             if (num1 == 0)
             {
-                return TCompactProtocol.TSTOP;
+                return TSTOP;
             }
             short num2 = (short)((num1 & 240) >> 4);
             num = (num2 != 0 ? (short)(lastFieldId_ + num2) : ReadI16());
@@ -328,7 +328,7 @@ namespace Thrift.Protocol
         {
             lastField_.Push(lastFieldId_);
             lastFieldId_ = 0;
-            return TCompactProtocol.ANONYMOUS_STRUCT;
+            return ANONYMOUS_STRUCT;
         }
 
         public override void ReadStructEnd()

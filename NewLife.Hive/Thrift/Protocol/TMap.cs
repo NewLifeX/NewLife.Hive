@@ -2,58 +2,22 @@ using System;
 
 namespace Thrift.Protocol
 {
-	public struct TMap
-	{
-		private TType keyType;
+    public struct TMap
+    {
+        public Int32 Count { get; set; }
 
-		private TType valueType;
+        public TType KeyType { get; set; }
 
-		private int count;
+        public TType ValueType { get; set; }
 
-		public int Count
-		{
-			get
-			{
-				return count;
-			}
-			set
-			{
-				count = value;
-			}
-		}
-
-		public TType KeyType
-		{
-			get
-			{
-				return keyType;
-			}
-			set
-			{
-				keyType = value;
-			}
-		}
-
-		public TType ValueType
-		{
-			get
-			{
-				return valueType;
-			}
-			set
-			{
-				valueType = value;
-			}
-		}
-
-		public TMap(TType keyType, TType valueType, int count)
-		{
-			this = new TMap()
-			{
-				keyType = keyType,
-				valueType = valueType,
-				count = count
-			};
-		}
-	}
+        public TMap(TType keyType, TType valueType, Int32 count)
+        {
+            this = new TMap()
+            {
+                KeyType = keyType,
+                ValueType = valueType,
+                Count = count
+            };
+        }
+    }
 }
