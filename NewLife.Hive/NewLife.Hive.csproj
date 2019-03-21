@@ -5,12 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Thrift\Collections\**" />
     <Compile Remove="Thrift\Server\**" />
+    <EmbeddedResource Remove="Thrift\Collections\**" />
     <EmbeddedResource Remove="Thrift\Server\**" />
+    <None Remove="Thrift\Collections\**" />
     <None Remove="Thrift\Server\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Hive2\TCLIService.Constants.cs" />
     <Compile Remove="Thrift\Protocol\TBase64Utils.cs" />
     <Compile Remove="Thrift\Protocol\TCompactProtocol.cs" />
     <Compile Remove="Thrift\Protocol\TJSONProtocol.cs" />
