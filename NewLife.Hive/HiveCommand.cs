@@ -44,27 +44,29 @@ namespace NewLife.Hive
         {
             CloseOperation();
 
-            var execReq = new TExecuteStatementReq()
+            var req = new TExecuteStatementReq()
             {
                 SessionHandle = _Session,
                 Statement = statement,
             };
+
             _LastSchema = null;
-            var execResp = _Client.ExecuteStatement(execReq);
-            execResp.Status.CheckStatus();
-            _Operation = execResp.OperationHandle;
+
+            var resp = _Client.ExecuteStatement(req);
+            resp.Status.CheckStatus();
+            _Operation = resp.OperationHandle;
         }
 
         private void CloseOperation()
         {
             if (_Operation != null)
             {
-                var closeReq = new TCloseOperationReq
+                var req = new TCloseOperationReq
                 {
                     OperationHandle = _Operation
                 };
-                var closeOperationResp = _Client.CloseOperation(closeReq);
-                closeOperationResp.Status.CheckStatus();
+                var resp = _Client.CloseOperation(req);
+                resp.Status.CheckStatus();
             }
         }
         #endregion
@@ -72,28 +74,28 @@ namespace NewLife.Hive
         #region 查询
         public List<ExpandoObject> FetchMany(Int32 size)
         {
-            var result = new List<ExpandoObject>();
+            var list = new List<ExpandoObject>();
             var names = GetColumnNames();
             var rowSet = Fetch(size);
-            if (rowSet == null) return result;
+            if (rowSet == null) return list;
 
-            GetRows(result, names, rowSet);
+            GetRows(list, names, rowSet);
 
-            return result;
+            return list;
         }
 
         public ExpandoObject FetchOne() => FetchMany(1).FirstOrDefault();
 
-        #region GetRows
-        private void GetRows(List<ExpandoObject> result, List<String> names, TRowSet rowSet)
+        #region 获取行
+        private void GetRows(List<ExpandoObject> list, List<String> names, TRowSet rowSet)
         {
             if (Version <= TProtocolVersion.V5)
             {
-                result.AddRange(GetRowByRowBase(names, rowSet));
+                list.AddRange(GetRowByRowBase(names, rowSet));
             }
             else if (!names.IsEmpty() && !rowSet.Columns.IsEmpty())
             {
-                result.AddRange(GetRowByColumnBase(rowSet.Columns, names));
+                list.AddRange(GetRowByColumnBase(rowSet.Columns, names));
             }
         }
 

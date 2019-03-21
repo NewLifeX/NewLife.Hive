@@ -9,35 +9,15 @@ namespace Thrift.Transport
 
         protected Stream outputStream;
 
-        private bool _IsDisposed;
+        private Boolean _IsDisposed;
 
-        public Stream InputStream
-        {
-            get
-            {
-                return inputStream;
-            }
-        }
+        public Stream InputStream => inputStream;
 
-        public override bool IsOpen
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override Boolean IsOpen => true;
 
-        public Stream OutputStream
-        {
-            get
-            {
-                return outputStream;
-            }
-        }
+        public Stream OutputStream => outputStream;
 
-        public TStreamTransport()
-        {
-        }
+        public TStreamTransport() { }
 
         public TStreamTransport(Stream inputStream, Stream outputStream)
         {
@@ -59,18 +39,12 @@ namespace Thrift.Transport
             }
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(Boolean disposing)
         {
             if (!_IsDisposed && disposing)
             {
-                if (InputStream != null)
-                {
-                    InputStream.Dispose();
-                }
-                if (OutputStream != null)
-                {
-                    OutputStream.Dispose();
-                }
+                if (InputStream != null) InputStream.Dispose();
+                if (OutputStream != null) OutputStream.Dispose();
             }
             _IsDisposed = true;
         }
@@ -78,31 +52,26 @@ namespace Thrift.Transport
         public override void Flush()
         {
             if (outputStream == null)
-            {
                 throw new TTransportException(TTransportException.ExceptionType.NotOpen, "Cannot flush null outputstream");
-            }
+
             outputStream.Flush();
         }
 
-        public override void Open()
-        {
-        }
+        public override void Open() { }
 
-        public override int Read(byte[] buf, int off, int len)
+        public override Int32 Read(Byte[] buf, Int32 off, Int32 len)
         {
             if (inputStream == null)
-            {
                 throw new TTransportException(TTransportException.ExceptionType.NotOpen, "Cannot read from null inputstream");
-            }
+
             return inputStream.Read(buf, off, len);
         }
 
-        public override void Write(byte[] buf, int off, int len)
+        public override void Write(Byte[] buf, Int32 off, Int32 len)
         {
             if (outputStream == null)
-            {
                 throw new TTransportException(TTransportException.ExceptionType.NotOpen, "Cannot write to null outputstream");
-            }
+
             outputStream.Write(buf, off, len);
         }
     }

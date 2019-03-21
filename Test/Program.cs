@@ -5,7 +5,6 @@ using System.Linq;
 using NewLife.Hive;
 using NewLife.Hive2;
 using NewLife.Log;
-using NewLife.Security;
 
 namespace Test
 {
@@ -39,9 +38,6 @@ namespace Test
                 var cmd = conn.CreateCommand();
                 cmd.Execute("use default");
 
-                var sc = cmd.GetSchema();
-                Console.WriteLine(sc);
-
                 var list = cmd.FetchMany(100);
                 if (!list.IsEmpty())
                 {
@@ -55,20 +51,23 @@ namespace Test
                 {
                     Console.WriteLine("no result");
                 }
+
                 cmd.Execute("select * from kbb");
                 var list2 = cmd.FetchMany(100);
                 if (!list2.IsEmpty())
                 {
-                    //var dict = list2[0] as IDictionary<String, Object>;
-                    //foreach (var key in dict.Keys)
-                    //{
-                    //    Console.WriteLine(key + dict[key].ToString());
-                    //}
+                    var dic = list2[0] as IDictionary<String, Object>;
+                    foreach (var item in dic)
+                    {
+                        Console.Write(item.Key + "\t");
+                    }
+                    Console.WriteLine();
+
                     foreach (IDictionary<String, Object> row in list2)
                     {
                         foreach (var item in row)
                         {
-                            Console.Write("{0}={1}, ", item.Key, item.Value);
+                            Console.Write(item.Value + "\t");
                         }
                         Console.WriteLine();
                     }

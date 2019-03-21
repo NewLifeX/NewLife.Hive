@@ -64,20 +64,20 @@ namespace NewLife.Hive
 
         private TSessionHandle GetSession()
         {
-            var openReq = new TOpenSessionReq(Version);
-            var openResp = _Client.OpenSession(openReq);
-            openResp.Status.CheckStatus();
-            return openResp.SessionHandle;
+            var req = new TOpenSessionReq(Version);
+            var resp = _Client.OpenSession(req);
+            resp.Status.CheckStatus();
+            return resp.SessionHandle;
         }
 
         private void CloseSession()
         {
-            var closeSessionReq = new TCloseSessionReq
+            var req = new TCloseSessionReq
             {
                 SessionHandle = _Session
             };
-            var closeSessionResp = _Client.CloseSession(closeSessionReq);
-            closeSessionResp.Status.CheckStatus();
+            var resp = _Client.CloseSession(req);
+            resp.Status.CheckStatus();
         }
 
         public HiveCommand CreateCommand()

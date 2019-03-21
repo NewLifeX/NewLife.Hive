@@ -62,9 +62,7 @@ namespace NewLife.Hive2
 
 
         public Isset __isset;
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public struct Isset
         {
             public Boolean username;
@@ -226,7 +224,5 @@ namespace NewLife.Hive2
             sb.Append(")");
             return sb.ToString();
         }
-
     }
-
 }

@@ -1,81 +1,79 @@
 using System;
 using System.Text;
 using Thrift.Transport;
-using System.Reflection.Emit;
-using System.Reflection;
 
 namespace Thrift.Protocol
 {
     public class TBinaryProtocol : TProtocol
     {
-        protected const uint VERSION_MASK = 4294901760;
+        protected const UInt32 VERSION_MASK = 4294901760;
 
-        protected const uint VERSION_1 = 2147549184;
+        protected const UInt32 VERSION_1 = 2147549184;
 
-        protected bool strictRead_;
+        protected Boolean strictRead_;
 
-        protected bool strictWrite_ = true;
+        protected Boolean strictWrite_ = true;
 
-        private byte[] bout = new byte[1];
+        private readonly Byte[] bout = new Byte[1];
 
-        private byte[] i16out = new byte[2];
+        private readonly Byte[] i16out = new Byte[2];
 
-        private byte[] i32out = new byte[4];
+        private readonly Byte[] i32out = new Byte[4];
 
-        private byte[] i64out = new byte[8];
+        private readonly Byte[] i64out = new Byte[8];
 
-        private byte[] bin = new byte[1];
+        private readonly Byte[] bin = new Byte[1];
 
-        private byte[] i16in = new byte[2];
+        private readonly Byte[] i16in = new Byte[2];
 
-        private byte[] i32in = new byte[4];
+        private readonly Byte[] i32in = new Byte[4];
 
-        private byte[] i64in = new byte[8];
+        private readonly Byte[] i64in = new Byte[8];
 
         public TBinaryProtocol(TTransport trans) : this(trans, false, true)
         {
         }
 
-        public TBinaryProtocol(TTransport trans, bool strictRead, bool strictWrite) : base(trans)
+        public TBinaryProtocol(TTransport trans, Boolean strictRead, Boolean strictWrite) : base(trans)
         {
             strictRead_ = strictRead;
             strictWrite_ = strictWrite;
         }
 
-        private int ReadAll(byte[] buf, int off, int len)
+        private Int32 ReadAll(Byte[] buf, Int32 off, Int32 len)
         {
             return trans.ReadAll(buf, off, len);
         }
 
-        public override byte[] ReadBinary()
+        public override Byte[] ReadBinary()
         {
-            int num = ReadI32();
-            byte[] numArray = new byte[num];
+            var num = ReadI32();
+            var numArray = new Byte[num];
             trans.ReadAll(numArray, 0, num);
             return numArray;
         }
 
-        public override bool ReadBool()
+        public override Boolean ReadBool()
         {
             return ReadByte() == 1;
         }
 
-        public override sbyte ReadByte()
+        public override SByte ReadByte()
         {
             ReadAll(bin, 0, 1);
-            return (sbyte)bin[0];
+            return (SByte)bin[0];
         }
 
-        public override double ReadDouble()
+        public override Double ReadDouble()
         {
             return BitConverter.Int64BitsToDouble(ReadI64());
         }
 
         public override TField ReadFieldBegin()
         {
-            TField tField = new TField()
+            var tField = new TField()
             {
-                Type = (TType)((byte)ReadByte())
+                Type = (TType)((Byte)ReadByte())
             };
             if (tField.Type != TType.Stop)
             {
@@ -88,29 +86,29 @@ namespace Thrift.Protocol
         {
         }
 
-        public override short ReadI16()
+        public override Int16 ReadI16()
         {
             ReadAll(i16in, 0, 2);
-            return (short)((i16in[0] & 255) << 8 | i16in[1] & 255);
+            return (Int16)((i16in[0] & 255) << 8 | i16in[1] & 255);
         }
 
-        public override int ReadI32()
+        public override Int32 ReadI32()
         {
             ReadAll(i32in, 0, 4);
             return (i32in[0] & 255) << 24 | (i32in[1] & 255) << 16 | (i32in[2] & 255) << 8 | i32in[3] & 255;
         }
 
-        public override long ReadI64()
+        public override Int64 ReadI64()
         {
             ReadAll(i64in, 0, 8);
-            return (long)(i64in[0] & 255) << 56 | (long)(i64in[1] & 255) << 48 | (long)(i64in[2] & 255) << 40 | (long)(i64in[3] & 255) << 32 | (long)(i64in[4] & 255) << 24 | (long)(i64in[5] & 255) << 16 | (long)(i64in[6] & 255) << 8 | (long)(i64in[7] & 255);
+            return (Int64)(i64in[0] & 255) << 56 | (Int64)(i64in[1] & 255) << 48 | (Int64)(i64in[2] & 255) << 40 | (Int64)(i64in[3] & 255) << 32 | (Int64)(i64in[4] & 255) << 24 | (Int64)(i64in[5] & 255) << 16 | (Int64)(i64in[6] & 255) << 8 | i64in[7] & 255;
         }
 
         public override TList ReadListBegin()
         {
-            TList tList = new TList()
+            var tList = new TList()
             {
-                ElementType = (TType)((byte)ReadByte()),
+                ElementType = (TType)((Byte)ReadByte()),
                 Count = ReadI32()
             };
             return tList;
@@ -122,10 +120,10 @@ namespace Thrift.Protocol
 
         public override TMap ReadMapBegin()
         {
-            TMap tMap = new TMap()
+            var tMap = new TMap()
             {
-                KeyType = (TType)((byte)ReadByte()),
-                ValueType = (TType)((byte)ReadByte()),
+                KeyType = (TType)((Byte)ReadByte()),
+                ValueType = (TType)((Byte)ReadByte()),
                 Count = ReadI32()
             };
             return tMap;
@@ -137,8 +135,8 @@ namespace Thrift.Protocol
 
         public override TMessage ReadMessageBegin()
         {
-            TMessage tMessage = new TMessage();
-            int num = ReadI32();
+            var tMessage = new TMessage();
+            var num = ReadI32();
             if (num >= 0)
             {
                 if (strictRead_)
@@ -151,10 +149,10 @@ namespace Thrift.Protocol
             }
             else
             {
-                uint num1 = (uint)(num & -65536);
+                var num1 = (UInt32)(num & -65536);
                 if (Convert.ToBase64String(BitConverter.GetBytes(num1)) != Convert.ToBase64String(BitConverter.GetBytes(-2147418112)))
                 {
-                    throw new TProtocolException(4, string.Concat("Bad version in ReadMessageBegin: ", num1));
+                    throw new TProtocolException(4, String.Concat("Bad version in ReadMessageBegin: ", num1));
                 }
                 tMessage.Type = (TMessageType)(num & 255);
                 tMessage.Name = ReadString();
@@ -169,9 +167,9 @@ namespace Thrift.Protocol
 
         public override TSet ReadSetBegin()
         {
-            TSet tSet = new TSet()
+            var tSet = new TSet()
             {
-                ElementType = (TType)((byte)ReadByte()),
+                ElementType = (TType)((Byte)ReadByte()),
                 Count = ReadI32()
             };
             return tSet;
@@ -181,11 +179,11 @@ namespace Thrift.Protocol
         {
         }
 
-        private string ReadStringBody(int size)
+        private String ReadStringBody(Int32 size)
         {
-            byte[] numArray = new byte[size];
+            var numArray = new Byte[size];
             trans.ReadAll(numArray, 0, size);
-            return Encoding.UTF8.GetString(numArray, 0, (int)numArray.Length);
+            return Encoding.UTF8.GetString(numArray, 0, numArray.Length);
         }
 
         public override TStruct ReadStructBegin()
@@ -197,15 +195,15 @@ namespace Thrift.Protocol
         {
         }
 
-        public override void WriteBinary(byte[] b)
+        public override void WriteBinary(Byte[] b)
         {
-            WriteI32((int)b.Length);
-            trans.Write(b, 0, (int)b.Length);
+            WriteI32(b.Length);
+            trans.Write(b, 0, b.Length);
         }
 
-        private delegate void temp(bool b);
+        private delegate void temp(Boolean b);
 
-        public override void WriteBool(bool b)
+        public override void WriteBool(Boolean b)
         {
             //var dm = new DynamicMethod("tempWriteBool", null, new Type[] { typeof(bool) });
             //var il = dm.GetILGenerator();
@@ -222,23 +220,23 @@ namespace Thrift.Protocol
             //il.Emit(OpCodes.Ret);
             //var tm = (temp)(dm.CreateDelegate(typeof(TBinaryProtocol)));
             //tm(b);
-            WriteByte((b ? (sbyte)1 : (sbyte)0));
+            WriteByte((b ? (SByte)1 : (SByte)0));
         }
 
-        public override void WriteByte(sbyte b)
+        public override void WriteByte(SByte b)
         {
-            bout[0] = (byte)b;
+            bout[0] = (Byte)b;
             trans.Write(bout, 0, 1);
         }
 
-        public override void WriteDouble(double d)
+        public override void WriteDouble(Double d)
         {
             WriteI64(BitConverter.DoubleToInt64Bits(d));
         }
 
         public override void WriteFieldBegin(TField field)
         {
-            WriteByte((sbyte)field.Type);
+            WriteByte((SByte)field.Type);
             WriteI16(field.ID);
         }
 
@@ -251,38 +249,38 @@ namespace Thrift.Protocol
             WriteByte(0);
         }
 
-        public override void WriteI16(short s)
+        public override void WriteI16(Int16 s)
         {
-            i16out[0] = (byte)(255 & s >> 8);
-            i16out[1] = (byte)(255 & s);
+            i16out[0] = (Byte)(255 & s >> 8);
+            i16out[1] = (Byte)(255 & s);
             trans.Write(i16out, 0, 2);
         }
 
-        public override void WriteI32(int i32)
+        public override void WriteI32(Int32 i32)
         {
-            i32out[0] = (byte)(255 & i32 >> 24);
-            i32out[1] = (byte)(255 & i32 >> 16);
-            i32out[2] = (byte)(255 & i32 >> 8);
-            i32out[3] = (byte)(255 & i32);
+            i32out[0] = (Byte)(255 & i32 >> 24);
+            i32out[1] = (Byte)(255 & i32 >> 16);
+            i32out[2] = (Byte)(255 & i32 >> 8);
+            i32out[3] = (Byte)(255 & i32);
             trans.Write(i32out, 0, 4);
         }
 
-        public override void WriteI64(long i64)
+        public override void WriteI64(Int64 i64)
         {
-            i64out[0] = (byte)((long)255 & i64 >> 56);
-            i64out[1] = (byte)((long)255 & i64 >> 48);
-            i64out[2] = (byte)((long)255 & i64 >> 40);
-            i64out[3] = (byte)((long)255 & i64 >> 32);
-            i64out[4] = (byte)((long)255 & i64 >> 24);
-            i64out[5] = (byte)((long)255 & i64 >> 16);
-            i64out[6] = (byte)((long)255 & i64 >> 8);
-            i64out[7] = (byte)((long)255 & i64);
+            i64out[0] = (Byte)(255 & i64 >> 56);
+            i64out[1] = (Byte)(255 & i64 >> 48);
+            i64out[2] = (Byte)(255 & i64 >> 40);
+            i64out[3] = (Byte)(255 & i64 >> 32);
+            i64out[4] = (Byte)(255 & i64 >> 24);
+            i64out[5] = (Byte)(255 & i64 >> 16);
+            i64out[6] = (Byte)(255 & i64 >> 8);
+            i64out[7] = (Byte)(255 & i64);
             trans.Write(i64out, 0, 8);
         }
 
         public override void WriteListBegin(TList list)
         {
-            WriteByte((sbyte)list.ElementType);
+            WriteByte((SByte)list.ElementType);
             WriteI32(list.Count);
         }
 
@@ -292,8 +290,8 @@ namespace Thrift.Protocol
 
         public override void WriteMapBegin(TMap map)
         {
-            WriteByte((sbyte)map.KeyType);
-            WriteByte((sbyte)map.ValueType);
+            WriteByte((SByte)map.KeyType);
+            WriteByte((SByte)map.ValueType);
             WriteI32(map.Count);
         }
 
@@ -306,11 +304,11 @@ namespace Thrift.Protocol
             if (!strictWrite_)
             {
                 WriteString(message.Name);
-                WriteByte((sbyte)message.Type);
+                WriteByte((SByte)message.Type);
                 WriteI32(message.SeqID);
                 return;
             }
-            WriteI32(-2147418112 | (int)message.Type);
+            WriteI32(-2147418112 | (Int32)message.Type);
             WriteString(message.Name);
             WriteI32(message.SeqID);
         }
@@ -321,7 +319,7 @@ namespace Thrift.Protocol
 
         public override void WriteSetBegin(TSet set)
         {
-            WriteByte((sbyte)set.ElementType);
+            WriteByte((SByte)set.ElementType);
             WriteI32(set.Count);
         }
 
@@ -339,24 +337,21 @@ namespace Thrift.Protocol
 
         public class Factory : TProtocolFactory
         {
-            protected bool strictRead_;
+            protected Boolean strictRead_;
 
-            protected bool strictWrite_;
+            protected Boolean strictWrite_;
 
             public Factory() : this(false, true)
             {
             }
 
-            public Factory(bool strictRead, bool strictWrite)
+            public Factory(Boolean strictRead, Boolean strictWrite)
             {
                 strictRead_ = strictRead;
                 strictWrite_ = strictWrite;
             }
 
-            public TProtocol GetProtocol(TTransport trans)
-            {
-                return new TBinaryProtocol(trans, strictRead_, strictWrite_);
-            }
+            public TProtocol GetProtocol(TTransport trans) => new TBinaryProtocol(trans, strictRead_, strictWrite_);
         }
     }
 }

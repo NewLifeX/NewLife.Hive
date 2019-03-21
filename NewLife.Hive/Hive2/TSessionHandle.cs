@@ -4,23 +4,14 @@ using Thrift.Protocol;
 
 namespace NewLife.Hive2
 {
-
-#if !SILVERLIGHT
     [Serializable]
-#endif
     public partial class TSessionHandle : TBase
     {
-
         public THandleIdentifier SessionId { get; set; }
 
-        public TSessionHandle()
-        {
-        }
+        public TSessionHandle() { }
 
-        public TSessionHandle(THandleIdentifier sessionId) : this()
-        {
-            SessionId = sessionId;
-        }
+        public TSessionHandle(THandleIdentifier sessionId) : this() => SessionId = sessionId;
 
         public void Read(TProtocol iprot)
         {
@@ -30,10 +21,8 @@ namespace NewLife.Hive2
             while (true)
             {
                 field = iprot.ReadFieldBegin();
-                if (field.Type == TType.Stop)
-                {
-                    break;
-                }
+                if (field.Type == TType.Stop) break;
+
                 switch (field.ID)
                 {
                     case 1:
@@ -84,7 +73,5 @@ namespace NewLife.Hive2
             sb.Append(")");
             return sb.ToString();
         }
-
     }
-
 }

@@ -12,100 +12,24 @@ namespace NewLife.Hive2
         public interface Iface
         {
             TOpenSessionResp OpenSession(TOpenSessionReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_OpenSession(AsyncCallback callback, object state, TOpenSessionReq req);
-      TOpenSessionResp End_OpenSession(IAsyncResult asyncResult);
-#endif
             TCloseSessionResp CloseSession(TCloseSessionReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_CloseSession(AsyncCallback callback, object state, TCloseSessionReq req);
-      TCloseSessionResp End_CloseSession(IAsyncResult asyncResult);
-#endif
             TGetInfoResp GetInfo(TGetInfoReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_GetInfo(AsyncCallback callback, object state, TGetInfoReq req);
-      TGetInfoResp End_GetInfo(IAsyncResult asyncResult);
-#endif
             TExecuteStatementResp ExecuteStatement(TExecuteStatementReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_ExecuteStatement(AsyncCallback callback, object state, TExecuteStatementReq req);
-      TExecuteStatementResp End_ExecuteStatement(IAsyncResult asyncResult);
-#endif
             TGetTypeInfoResp GetTypeInfo(TGetTypeInfoReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_GetTypeInfo(AsyncCallback callback, object state, TGetTypeInfoReq req);
-      TGetTypeInfoResp End_GetTypeInfo(IAsyncResult asyncResult);
-#endif
             TGetCatalogsResp GetCatalogs(TGetCatalogsReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_GetCatalogs(AsyncCallback callback, object state, TGetCatalogsReq req);
-      TGetCatalogsResp End_GetCatalogs(IAsyncResult asyncResult);
-#endif
             TGetSchemasResp GetSchemas(TGetSchemasReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_GetSchemas(AsyncCallback callback, object state, TGetSchemasReq req);
-      TGetSchemasResp End_GetSchemas(IAsyncResult asyncResult);
-#endif
             TGetTablesResp GetTables(TGetTablesReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_GetTables(AsyncCallback callback, object state, TGetTablesReq req);
-      TGetTablesResp End_GetTables(IAsyncResult asyncResult);
-#endif
             TGetTableTypesResp GetTableTypes(TGetTableTypesReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_GetTableTypes(AsyncCallback callback, object state, TGetTableTypesReq req);
-      TGetTableTypesResp End_GetTableTypes(IAsyncResult asyncResult);
-#endif
             TGetColumnsResp GetColumns(TGetColumnsReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_GetColumns(AsyncCallback callback, object state, TGetColumnsReq req);
-      TGetColumnsResp End_GetColumns(IAsyncResult asyncResult);
-#endif
             TGetFunctionsResp GetFunctions(TGetFunctionsReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_GetFunctions(AsyncCallback callback, object state, TGetFunctionsReq req);
-      TGetFunctionsResp End_GetFunctions(IAsyncResult asyncResult);
-#endif
             TGetOperationStatusResp GetOperationStatus(TGetOperationStatusReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_GetOperationStatus(AsyncCallback callback, object state, TGetOperationStatusReq req);
-      TGetOperationStatusResp End_GetOperationStatus(IAsyncResult asyncResult);
-#endif
             TCancelOperationResp CancelOperation(TCancelOperationReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_CancelOperation(AsyncCallback callback, object state, TCancelOperationReq req);
-      TCancelOperationResp End_CancelOperation(IAsyncResult asyncResult);
-#endif
             TCloseOperationResp CloseOperation(TCloseOperationReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_CloseOperation(AsyncCallback callback, object state, TCloseOperationReq req);
-      TCloseOperationResp End_CloseOperation(IAsyncResult asyncResult);
-#endif
             TGetResultSetMetadataResp GetResultSetMetadata(TGetResultSetMetadataReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_GetResultSetMetadata(AsyncCallback callback, object state, TGetResultSetMetadataReq req);
-      TGetResultSetMetadataResp End_GetResultSetMetadata(IAsyncResult asyncResult);
-#endif
             TFetchResultsResp FetchResults(TFetchResultsReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_FetchResults(AsyncCallback callback, object state, TFetchResultsReq req);
-      TFetchResultsResp End_FetchResults(IAsyncResult asyncResult);
-#endif
             TGetDelegationTokenResp GetDelegationToken(TGetDelegationTokenReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_GetDelegationToken(AsyncCallback callback, object state, TGetDelegationTokenReq req);
-      TGetDelegationTokenResp End_GetDelegationToken(IAsyncResult asyncResult);
-#endif
             TCancelDelegationTokenResp CancelDelegationToken(TCancelDelegationTokenReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_CancelDelegationToken(AsyncCallback callback, object state, TCancelDelegationTokenReq req);
-      TCancelDelegationTokenResp End_CancelDelegationToken(IAsyncResult asyncResult);
-#endif
             TRenewDelegationTokenResp RenewDelegationToken(TRenewDelegationTokenReq req);
-#if SILVERLIGHT
-      IAsyncResult Begin_RenewDelegationToken(AsyncCallback callback, object state, TRenewDelegationTokenReq req);
-      TRenewDelegationTokenResp End_RenewDelegationToken(IAsyncResult asyncResult);
-#endif
         }
 
         public class Client : IDisposable, Iface
@@ -164,39 +88,13 @@ namespace NewLife.Hive2
             }
             #endregion
 
-
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_OpenSession(AsyncCallback callback, object state, TOpenSessionReq req)
-      {
-        return send_OpenSession(callback, state, req);
-      }
-
-      public TOpenSessionResp End_OpenSession(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_OpenSession();
-      }
-
-#endif
-
             public TOpenSessionResp OpenSession(TOpenSessionReq req)
             {
-#if !SILVERLIGHT
                 send_OpenSession(req);
                 return recv_OpenSession();
 
-#else
-        var asyncResult = Begin_OpenSession(null, null, req);
-        return End_OpenSession(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_OpenSession(AsyncCallback callback, object state, TOpenSessionReq req)
-#else
             public void send_OpenSession(TOpenSessionReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("OpenSession", TMessageType.Call, seqid_));
                 var args = new OpenSession_args
@@ -205,11 +103,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TOpenSessionResp recv_OpenSession()
@@ -231,38 +125,13 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "OpenSession failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_CloseSession(AsyncCallback callback, object state, TCloseSessionReq req)
-      {
-        return send_CloseSession(callback, state, req);
-      }
-
-      public TCloseSessionResp End_CloseSession(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_CloseSession();
-      }
-
-#endif
-
             public TCloseSessionResp CloseSession(TCloseSessionReq req)
             {
-#if !SILVERLIGHT
                 send_CloseSession(req);
                 return recv_CloseSession();
-
-#else
-        var asyncResult = Begin_CloseSession(null, null, req);
-        return End_CloseSession(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_CloseSession(AsyncCallback callback, object state, TCloseSessionReq req)
-#else
+
             public void send_CloseSession(TCloseSessionReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("CloseSession", TMessageType.Call, seqid_));
                 var args = new CloseSession_args
@@ -271,11 +140,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TCloseSessionResp recv_CloseSession()
@@ -297,38 +162,12 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "CloseSession failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_GetInfo(AsyncCallback callback, object state, TGetInfoReq req)
-      {
-        return send_GetInfo(callback, state, req);
-      }
-
-      public TGetInfoResp End_GetInfo(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_GetInfo();
-      }
-
-#endif
-
             public TGetInfoResp GetInfo(TGetInfoReq req)
             {
-#if !SILVERLIGHT
                 send_GetInfo(req);
                 return recv_GetInfo();
-
-#else
-        var asyncResult = Begin_GetInfo(null, null, req);
-        return End_GetInfo(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_GetInfo(AsyncCallback callback, object state, TGetInfoReq req)
-#else
             public void send_GetInfo(TGetInfoReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("GetInfo", TMessageType.Call, seqid_));
                 var args = new GetInfo_args
@@ -337,11 +176,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TGetInfoResp recv_GetInfo()
@@ -363,38 +198,13 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetInfo failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_ExecuteStatement(AsyncCallback callback, object state, TExecuteStatementReq req)
-      {
-        return send_ExecuteStatement(callback, state, req);
-      }
-
-      public TExecuteStatementResp End_ExecuteStatement(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_ExecuteStatement();
-      }
-
-#endif
-
             public TExecuteStatementResp ExecuteStatement(TExecuteStatementReq req)
             {
-#if !SILVERLIGHT
                 send_ExecuteStatement(req);
                 return recv_ExecuteStatement();
 
-#else
-        var asyncResult = Begin_ExecuteStatement(null, null, req);
-        return End_ExecuteStatement(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_ExecuteStatement(AsyncCallback callback, object state, TExecuteStatementReq req)
-#else
             public void send_ExecuteStatement(TExecuteStatementReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("ExecuteStatement", TMessageType.Call, seqid_));
                 var args = new ExecuteStatement_args
@@ -403,11 +213,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TExecuteStatementResp recv_ExecuteStatement()
@@ -429,38 +235,12 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "ExecuteStatement failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_GetTypeInfo(AsyncCallback callback, object state, TGetTypeInfoReq req)
-      {
-        return send_GetTypeInfo(callback, state, req);
-      }
-
-      public TGetTypeInfoResp End_GetTypeInfo(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_GetTypeInfo();
-      }
-
-#endif
-
             public TGetTypeInfoResp GetTypeInfo(TGetTypeInfoReq req)
             {
-#if !SILVERLIGHT
                 send_GetTypeInfo(req);
                 return recv_GetTypeInfo();
-
-#else
-        var asyncResult = Begin_GetTypeInfo(null, null, req);
-        return End_GetTypeInfo(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_GetTypeInfo(AsyncCallback callback, object state, TGetTypeInfoReq req)
-#else
             public void send_GetTypeInfo(TGetTypeInfoReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("GetTypeInfo", TMessageType.Call, seqid_));
                 var args = new GetTypeInfo_args
@@ -469,11 +249,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TGetTypeInfoResp recv_GetTypeInfo()
@@ -495,38 +271,13 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetTypeInfo failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_GetCatalogs(AsyncCallback callback, object state, TGetCatalogsReq req)
-      {
-        return send_GetCatalogs(callback, state, req);
-      }
-
-      public TGetCatalogsResp End_GetCatalogs(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_GetCatalogs();
-      }
-
-#endif
-
             public TGetCatalogsResp GetCatalogs(TGetCatalogsReq req)
             {
-#if !SILVERLIGHT
                 send_GetCatalogs(req);
                 return recv_GetCatalogs();
-
-#else
-        var asyncResult = Begin_GetCatalogs(null, null, req);
-        return End_GetCatalogs(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_GetCatalogs(AsyncCallback callback, object state, TGetCatalogsReq req)
-#else
+
             public void send_GetCatalogs(TGetCatalogsReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("GetCatalogs", TMessageType.Call, seqid_));
                 var args = new GetCatalogs_args
@@ -535,11 +286,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TGetCatalogsResp recv_GetCatalogs()
@@ -561,38 +308,13 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetCatalogs failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_GetSchemas(AsyncCallback callback, object state, TGetSchemasReq req)
-      {
-        return send_GetSchemas(callback, state, req);
-      }
-
-      public TGetSchemasResp End_GetSchemas(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_GetSchemas();
-      }
-
-#endif
-
             public TGetSchemasResp GetSchemas(TGetSchemasReq req)
             {
-#if !SILVERLIGHT
                 send_GetSchemas(req);
                 return recv_GetSchemas();
-
-#else
-        var asyncResult = Begin_GetSchemas(null, null, req);
-        return End_GetSchemas(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_GetSchemas(AsyncCallback callback, object state, TGetSchemasReq req)
-#else
+
             public void send_GetSchemas(TGetSchemasReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("GetSchemas", TMessageType.Call, seqid_));
                 var args = new GetSchemas_args
@@ -601,11 +323,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TGetSchemasResp recv_GetSchemas()
@@ -627,38 +345,13 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetSchemas failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_GetTables(AsyncCallback callback, object state, TGetTablesReq req)
-      {
-        return send_GetTables(callback, state, req);
-      }
-
-      public TGetTablesResp End_GetTables(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_GetTables();
-      }
-
-#endif
-
             public TGetTablesResp GetTables(TGetTablesReq req)
             {
-#if !SILVERLIGHT
                 send_GetTables(req);
                 return recv_GetTables();
-
-#else
-        var asyncResult = Begin_GetTables(null, null, req);
-        return End_GetTables(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_GetTables(AsyncCallback callback, object state, TGetTablesReq req)
-#else
+
             public void send_GetTables(TGetTablesReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("GetTables", TMessageType.Call, seqid_));
                 var args = new GetTables_args
@@ -667,11 +360,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TGetTablesResp recv_GetTables()
@@ -693,38 +382,13 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetTables failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_GetTableTypes(AsyncCallback callback, object state, TGetTableTypesReq req)
-      {
-        return send_GetTableTypes(callback, state, req);
-      }
-
-      public TGetTableTypesResp End_GetTableTypes(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_GetTableTypes();
-      }
-
-#endif
-
             public TGetTableTypesResp GetTableTypes(TGetTableTypesReq req)
             {
-#if !SILVERLIGHT
                 send_GetTableTypes(req);
                 return recv_GetTableTypes();
-
-#else
-        var asyncResult = Begin_GetTableTypes(null, null, req);
-        return End_GetTableTypes(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_GetTableTypes(AsyncCallback callback, object state, TGetTableTypesReq req)
-#else
+
             public void send_GetTableTypes(TGetTableTypesReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("GetTableTypes", TMessageType.Call, seqid_));
                 var args = new GetTableTypes_args
@@ -733,11 +397,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TGetTableTypesResp recv_GetTableTypes()
@@ -759,38 +419,13 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetTableTypes failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_GetColumns(AsyncCallback callback, object state, TGetColumnsReq req)
-      {
-        return send_GetColumns(callback, state, req);
-      }
-
-      public TGetColumnsResp End_GetColumns(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_GetColumns();
-      }
-
-#endif
-
             public TGetColumnsResp GetColumns(TGetColumnsReq req)
             {
-#if !SILVERLIGHT
                 send_GetColumns(req);
                 return recv_GetColumns();
-
-#else
-        var asyncResult = Begin_GetColumns(null, null, req);
-        return End_GetColumns(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_GetColumns(AsyncCallback callback, object state, TGetColumnsReq req)
-#else
+
             public void send_GetColumns(TGetColumnsReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("GetColumns", TMessageType.Call, seqid_));
                 var args = new GetColumns_args
@@ -799,11 +434,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TGetColumnsResp recv_GetColumns()
@@ -825,38 +456,13 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetColumns failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_GetFunctions(AsyncCallback callback, object state, TGetFunctionsReq req)
-      {
-        return send_GetFunctions(callback, state, req);
-      }
-
-      public TGetFunctionsResp End_GetFunctions(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_GetFunctions();
-      }
-
-#endif
-
             public TGetFunctionsResp GetFunctions(TGetFunctionsReq req)
             {
-#if !SILVERLIGHT
                 send_GetFunctions(req);
                 return recv_GetFunctions();
-
-#else
-        var asyncResult = Begin_GetFunctions(null, null, req);
-        return End_GetFunctions(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_GetFunctions(AsyncCallback callback, object state, TGetFunctionsReq req)
-#else
+
             public void send_GetFunctions(TGetFunctionsReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("GetFunctions", TMessageType.Call, seqid_));
                 var args = new GetFunctions_args
@@ -865,11 +471,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TGetFunctionsResp recv_GetFunctions()
@@ -890,21 +492,6 @@ namespace NewLife.Hive2
                 }
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetFunctions failed: unknown result");
             }
-
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_GetOperationStatus(AsyncCallback callback, object state, TGetOperationStatusReq req)
-      {
-        return send_GetOperationStatus(callback, state, req);
-      }
-
-      public TGetOperationStatusResp End_GetOperationStatus(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_GetOperationStatus();
-      }
-
-#endif
 
             public TGetOperationStatusResp GetOperationStatus(TGetOperationStatusReq req)
             {
@@ -957,21 +544,6 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetOperationStatus failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_CancelOperation(AsyncCallback callback, object state, TCancelOperationReq req)
-      {
-        return send_CancelOperation(callback, state, req);
-      }
-
-      public TCancelOperationResp End_CancelOperation(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_CancelOperation();
-      }
-
-#endif
-
             public TCancelOperationResp CancelOperation(TCancelOperationReq req)
             {
 #if !SILVERLIGHT
@@ -1022,21 +594,6 @@ namespace NewLife.Hive2
                 }
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "CancelOperation failed: unknown result");
             }
-
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_CloseOperation(AsyncCallback callback, object state, TCloseOperationReq req)
-      {
-        return send_CloseOperation(callback, state, req);
-      }
-
-      public TCloseOperationResp End_CloseOperation(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_CloseOperation();
-      }
-
-#endif
 
             public TCloseOperationResp CloseOperation(TCloseOperationReq req)
             {
@@ -1089,21 +646,6 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "CloseOperation failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_GetResultSetMetadata(AsyncCallback callback, object state, TGetResultSetMetadataReq req)
-      {
-        return send_GetResultSetMetadata(callback, state, req);
-      }
-
-      public TGetResultSetMetadataResp End_GetResultSetMetadata(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_GetResultSetMetadata();
-      }
-
-#endif
-
             public TGetResultSetMetadataResp GetResultSetMetadata(TGetResultSetMetadataReq req)
             {
 #if !SILVERLIGHT
@@ -1154,21 +696,6 @@ namespace NewLife.Hive2
                 }
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetResultSetMetadata failed: unknown result");
             }
-
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_FetchResults(AsyncCallback callback, object state, TFetchResultsReq req)
-      {
-        return send_FetchResults(callback, state, req);
-      }
-
-      public TFetchResultsResp End_FetchResults(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_FetchResults();
-      }
-
-#endif
 
             public TFetchResultsResp FetchResults(TFetchResultsReq req)
             {
@@ -1221,21 +748,6 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "FetchResults failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_GetDelegationToken(AsyncCallback callback, object state, TGetDelegationTokenReq req)
-      {
-        return send_GetDelegationToken(callback, state, req);
-      }
-
-      public TGetDelegationTokenResp End_GetDelegationToken(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_GetDelegationToken();
-      }
-
-#endif
-
             public TGetDelegationTokenResp GetDelegationToken(TGetDelegationTokenReq req)
             {
 #if !SILVERLIGHT
@@ -1287,21 +799,6 @@ namespace NewLife.Hive2
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "GetDelegationToken failed: unknown result");
             }
 
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_CancelDelegationToken(AsyncCallback callback, object state, TCancelDelegationTokenReq req)
-      {
-        return send_CancelDelegationToken(callback, state, req);
-      }
-
-      public TCancelDelegationTokenResp End_CancelDelegationToken(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_CancelDelegationToken();
-      }
-
-#endif
-
             public TCancelDelegationTokenResp CancelDelegationToken(TCancelDelegationTokenReq req)
             {
 #if !SILVERLIGHT
@@ -1352,21 +849,6 @@ namespace NewLife.Hive2
                 }
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "CancelDelegationToken failed: unknown result");
             }
-
-
-#if SILVERLIGHT
-      public IAsyncResult Begin_RenewDelegationToken(AsyncCallback callback, object state, TRenewDelegationTokenReq req)
-      {
-        return send_RenewDelegationToken(callback, state, req);
-      }
-
-      public TRenewDelegationTokenResp End_RenewDelegationToken(IAsyncResult asyncResult)
-      {
-        oprot_.Transport.EndFlush(asyncResult);
-        return recv_RenewDelegationToken();
-      }
-
-#endif
 
             public TRenewDelegationTokenResp RenewDelegationToken(TRenewDelegationTokenReq req)
             {
@@ -5522,8 +5004,6 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
-
     }
 }

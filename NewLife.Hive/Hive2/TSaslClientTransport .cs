@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Thrift.Transport
 {
-    public class TSaslClientTransport : TTransport, IDisposable
+    public class TSaslClientTransport : TTransport
     {
         protected SASLClient _sasl;
         protected TSocket _socket;
@@ -21,7 +21,7 @@ namespace Thrift.Transport
             _socket = socket;
         }
 
-        public void Dispose()
+        protected override void Dispose(Boolean disposing)
         {
             _socket.Close();
             _socket = null;
@@ -34,10 +34,7 @@ namespace Thrift.Transport
             _sasl.Dispose();
         }
 
-        public override Boolean IsOpen
-        {
-            get { return _IsOpen; }
-        }
+        public override Boolean IsOpen => _IsOpen;
 
         public override void Open()
         {
@@ -92,9 +89,7 @@ namespace Thrift.Transport
                 Body = body;
             }
 
-            public Sasl_Msg()
-            {
-            }
+            public Sasl_Msg() { }
         }
 
         public Sasl_Msg Recv_Sasl_Msg()
@@ -127,12 +122,10 @@ namespace Thrift.Transport
         public override Int32 Read(Byte[] buf, Int32 off, Int32 len)
         {
             var length = readBuffer.Read(buf, off, len);
-            if (length > 0)
-                return length;
+            if (length > 0) return length;
 
             ReadFrame();
-            var i = readBuffer.Read(buf, off, len);
-            return i;
+            return readBuffer.Read(buf, off, len);
         }
 
         private void ReadFrame()
@@ -148,10 +141,7 @@ namespace Thrift.Transport
         }
 
 
-        public override void Write(Byte[] buf, Int32 off, Int32 len)
-        {
-            _WriteBuffer.Write(buf, off, len);
-        }
+        public override void Write(Byte[] buf, Int32 off, Int32 len) => _WriteBuffer.Write(buf, off, len);
 
         public override void Flush()
         {
@@ -160,11 +150,6 @@ namespace Thrift.Transport
             WriteLength(buff.Length);
             _socket.Write(buff, 0, buff.Length);
             _socket.Flush();
-        }
-
-        protected override void Dispose(Boolean disposing)
-        {
-            Dispose();
         }
     }
 }

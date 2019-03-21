@@ -6,9 +6,7 @@ namespace Thrift.Transport
     {
         protected Byte[] _buf;
         protected Int32 Count { get; private set; }
-        public ByteArrayOutputStream()
-            : this(32)
-        { }
+        public ByteArrayOutputStream() : this(32) { }
 
         public ByteArrayOutputStream(Int32 size)
         {
@@ -51,5 +49,4 @@ namespace Thrift.Transport
             return newBuf;
         }
     }
-
 }
