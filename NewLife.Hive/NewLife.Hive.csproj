@@ -5,7 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Thrift\Server\**" />
+    <EmbeddedResource Remove="Thrift\Server\**" />
+    <None Remove="Thrift\Server\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Thrift\Transport\TBufferedTransport.cs" />
+    <Compile Remove="Thrift\Transport\TFramedTransport.cs" />
+    <Compile Remove="Thrift\Transport\THttpClient.cs" />
+    <Compile Remove="Thrift\Transport\THttpHandler.cs" />
+    <Compile Remove="Thrift\Transport\TMemoryBuffer.cs" />
     <Compile Remove="Thrift\Transport\TServerSocket.cs" />
+    <Compile Remove="Thrift\Transport\TServerTransport.cs" />
+    <Compile Remove="Thrift\Transport\TTransportFactory.cs" />
   </ItemGroup>
 
   <ItemGroup>
