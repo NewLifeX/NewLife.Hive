@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using Thrift;
 using Thrift.Protocol;
@@ -66,7 +64,6 @@ namespace NewLife.Hive2
             {
                 Dispose(true);
             }
-
 
             protected virtual void Dispose(Boolean disposing)
             {
@@ -495,21 +492,11 @@ namespace NewLife.Hive2
 
             public TGetOperationStatusResp GetOperationStatus(TGetOperationStatusReq req)
             {
-#if !SILVERLIGHT
                 send_GetOperationStatus(req);
                 return recv_GetOperationStatus();
-
-#else
-        var asyncResult = Begin_GetOperationStatus(null, null, req);
-        return End_GetOperationStatus(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_GetOperationStatus(AsyncCallback callback, object state, TGetOperationStatusReq req)
-#else
+
             public void send_GetOperationStatus(TGetOperationStatusReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("GetOperationStatus", TMessageType.Call, seqid_));
                 var args = new GetOperationStatus_args
@@ -518,11 +505,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TGetOperationStatusResp recv_GetOperationStatus()
@@ -546,21 +529,11 @@ namespace NewLife.Hive2
 
             public TCancelOperationResp CancelOperation(TCancelOperationReq req)
             {
-#if !SILVERLIGHT
                 send_CancelOperation(req);
                 return recv_CancelOperation();
-
-#else
-        var asyncResult = Begin_CancelOperation(null, null, req);
-        return End_CancelOperation(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_CancelOperation(AsyncCallback callback, object state, TCancelOperationReq req)
-#else
+
             public void send_CancelOperation(TCancelOperationReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("CancelOperation", TMessageType.Call, seqid_));
                 var args = new CancelOperation_args
@@ -569,11 +542,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TCancelOperationResp recv_CancelOperation()
@@ -597,21 +566,11 @@ namespace NewLife.Hive2
 
             public TCloseOperationResp CloseOperation(TCloseOperationReq req)
             {
-#if !SILVERLIGHT
                 send_CloseOperation(req);
                 return recv_CloseOperation();
-
-#else
-        var asyncResult = Begin_CloseOperation(null, null, req);
-        return End_CloseOperation(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_CloseOperation(AsyncCallback callback, object state, TCloseOperationReq req)
-#else
+
             public void send_CloseOperation(TCloseOperationReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("CloseOperation", TMessageType.Call, seqid_));
                 var args = new CloseOperation_args
@@ -620,11 +579,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TCloseOperationResp recv_CloseOperation()
@@ -648,21 +603,11 @@ namespace NewLife.Hive2
 
             public TGetResultSetMetadataResp GetResultSetMetadata(TGetResultSetMetadataReq req)
             {
-#if !SILVERLIGHT
                 send_GetResultSetMetadata(req);
                 return recv_GetResultSetMetadata();
-
-#else
-        var asyncResult = Begin_GetResultSetMetadata(null, null, req);
-        return End_GetResultSetMetadata(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_GetResultSetMetadata(AsyncCallback callback, object state, TGetResultSetMetadataReq req)
-#else
+
             public void send_GetResultSetMetadata(TGetResultSetMetadataReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("GetResultSetMetadata", TMessageType.Call, seqid_));
                 var args = new GetResultSetMetadata_args
@@ -671,11 +616,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TGetResultSetMetadataResp recv_GetResultSetMetadata()
@@ -736,21 +677,11 @@ namespace NewLife.Hive2
 
             public TGetDelegationTokenResp GetDelegationToken(TGetDelegationTokenReq req)
             {
-#if !SILVERLIGHT
                 send_GetDelegationToken(req);
                 return recv_GetDelegationToken();
-
-#else
-        var asyncResult = Begin_GetDelegationToken(null, null, req);
-        return End_GetDelegationToken(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_GetDelegationToken(AsyncCallback callback, object state, TGetDelegationTokenReq req)
-#else
+
             public void send_GetDelegationToken(TGetDelegationTokenReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("GetDelegationToken", TMessageType.Call, seqid_));
                 var args = new GetDelegationToken_args
@@ -759,11 +690,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TGetDelegationTokenResp recv_GetDelegationToken()
@@ -787,21 +714,11 @@ namespace NewLife.Hive2
 
             public TCancelDelegationTokenResp CancelDelegationToken(TCancelDelegationTokenReq req)
             {
-#if !SILVERLIGHT
                 send_CancelDelegationToken(req);
                 return recv_CancelDelegationToken();
-
-#else
-        var asyncResult = Begin_CancelDelegationToken(null, null, req);
-        return End_CancelDelegationToken(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_CancelDelegationToken(AsyncCallback callback, object state, TCancelDelegationTokenReq req)
-#else
+
             public void send_CancelDelegationToken(TCancelDelegationTokenReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("CancelDelegationToken", TMessageType.Call, seqid_));
                 var args = new CancelDelegationToken_args
@@ -810,11 +727,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TCancelDelegationTokenResp recv_CancelDelegationToken()
@@ -838,21 +751,11 @@ namespace NewLife.Hive2
 
             public TRenewDelegationTokenResp RenewDelegationToken(TRenewDelegationTokenReq req)
             {
-#if !SILVERLIGHT
                 send_RenewDelegationToken(req);
                 return recv_RenewDelegationToken();
-
-#else
-        var asyncResult = Begin_RenewDelegationToken(null, null, req);
-        return End_RenewDelegationToken(asyncResult);
-
-#endif
             }
-#if SILVERLIGHT
-      public IAsyncResult send_RenewDelegationToken(AsyncCallback callback, object state, TRenewDelegationTokenReq req)
-#else
+
             public void send_RenewDelegationToken(TRenewDelegationTokenReq req)
-#endif
             {
                 oprot_.WriteMessageBegin(new TMessage("RenewDelegationToken", TMessageType.Call, seqid_));
                 var args = new RenewDelegationToken_args
@@ -861,11 +764,7 @@ namespace NewLife.Hive2
                 };
                 args.Write(oprot_);
                 oprot_.WriteMessageEnd();
-#if SILVERLIGHT
-        return oprot_.Transport.BeginFlush(callback, state);
-#else
                 oprot_.Transport.Flush();
-#endif
             }
 
             public TRenewDelegationTokenResp recv_RenewDelegationToken()
@@ -886,355 +785,9 @@ namespace NewLife.Hive2
                 }
                 throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "RenewDelegationToken failed: unknown result");
             }
-
-        }
-        public class Processor : TProcessor
-        {
-            public Processor(Iface iface)
-            {
-                iface_ = iface;
-                processMap_["OpenSession"] = OpenSession_Process;
-                processMap_["CloseSession"] = CloseSession_Process;
-                processMap_["GetInfo"] = GetInfo_Process;
-                processMap_["ExecuteStatement"] = ExecuteStatement_Process;
-                processMap_["GetTypeInfo"] = GetTypeInfo_Process;
-                processMap_["GetCatalogs"] = GetCatalogs_Process;
-                processMap_["GetSchemas"] = GetSchemas_Process;
-                processMap_["GetTables"] = GetTables_Process;
-                processMap_["GetTableTypes"] = GetTableTypes_Process;
-                processMap_["GetColumns"] = GetColumns_Process;
-                processMap_["GetFunctions"] = GetFunctions_Process;
-                processMap_["GetOperationStatus"] = GetOperationStatus_Process;
-                processMap_["CancelOperation"] = CancelOperation_Process;
-                processMap_["CloseOperation"] = CloseOperation_Process;
-                processMap_["GetResultSetMetadata"] = GetResultSetMetadata_Process;
-                processMap_["FetchResults"] = FetchResults_Process;
-                processMap_["GetDelegationToken"] = GetDelegationToken_Process;
-                processMap_["CancelDelegationToken"] = CancelDelegationToken_Process;
-                processMap_["RenewDelegationToken"] = RenewDelegationToken_Process;
-            }
-
-            protected delegate void ProcessFunction(Int32 seqid, TProtocol iprot, TProtocol oprot);
-            private Iface iface_;
-            protected Dictionary<String, ProcessFunction> processMap_ = new Dictionary<String, ProcessFunction>();
-
-            public Boolean Process(TProtocol iprot, TProtocol oprot)
-            {
-                try
-                {
-                    var msg = iprot.ReadMessageBegin();
-                    processMap_.TryGetValue(msg.Name, out var fn);
-                    if (fn == null)
-                    {
-                        TProtocolUtil.Skip(iprot, TType.Struct);
-                        iprot.ReadMessageEnd();
-                        var x = new TApplicationException(TApplicationException.ExceptionType.UnknownMethod, "Invalid method name: '" + msg.Name + "'");
-                        oprot.WriteMessageBegin(new TMessage(msg.Name, TMessageType.Exception, msg.SeqID));
-                        x.Write(oprot);
-                        oprot.WriteMessageEnd();
-                        oprot.Transport.Flush();
-                        return true;
-                    }
-                    fn(msg.SeqID, iprot, oprot);
-                }
-                catch (IOException)
-                {
-                    return false;
-                }
-                return true;
-            }
-
-            public void OpenSession_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new OpenSession_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new OpenSession_result
-                {
-                    Success = iface_.OpenSession(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("OpenSession", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void CloseSession_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new CloseSession_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new CloseSession_result
-                {
-                    Success = iface_.CloseSession(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("CloseSession", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void GetInfo_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new GetInfo_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new GetInfo_result
-                {
-                    Success = iface_.GetInfo(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("GetInfo", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void ExecuteStatement_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new ExecuteStatement_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new ExecuteStatement_result
-                {
-                    Success = iface_.ExecuteStatement(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("ExecuteStatement", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void GetTypeInfo_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new GetTypeInfo_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new GetTypeInfo_result
-                {
-                    Success = iface_.GetTypeInfo(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("GetTypeInfo", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void GetCatalogs_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new GetCatalogs_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new GetCatalogs_result
-                {
-                    Success = iface_.GetCatalogs(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("GetCatalogs", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void GetSchemas_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new GetSchemas_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new GetSchemas_result
-                {
-                    Success = iface_.GetSchemas(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("GetSchemas", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void GetTables_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new GetTables_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new GetTables_result
-                {
-                    Success = iface_.GetTables(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("GetTables", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void GetTableTypes_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new GetTableTypes_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new GetTableTypes_result
-                {
-                    Success = iface_.GetTableTypes(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("GetTableTypes", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void GetColumns_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new GetColumns_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new GetColumns_result
-                {
-                    Success = iface_.GetColumns(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("GetColumns", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void GetFunctions_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new GetFunctions_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new GetFunctions_result
-                {
-                    Success = iface_.GetFunctions(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("GetFunctions", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void GetOperationStatus_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new GetOperationStatus_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new GetOperationStatus_result
-                {
-                    Success = iface_.GetOperationStatus(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("GetOperationStatus", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void CancelOperation_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new CancelOperation_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new CancelOperation_result
-                {
-                    Success = iface_.CancelOperation(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("CancelOperation", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void CloseOperation_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new CloseOperation_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new CloseOperation_result
-                {
-                    Success = iface_.CloseOperation(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("CloseOperation", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void GetResultSetMetadata_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new GetResultSetMetadata_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new GetResultSetMetadata_result
-                {
-                    Success = iface_.GetResultSetMetadata(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("GetResultSetMetadata", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void FetchResults_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new FetchResults_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new FetchResults_result
-                {
-                    Success = iface_.FetchResults(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("FetchResults", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void GetDelegationToken_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new GetDelegationToken_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new GetDelegationToken_result
-                {
-                    Success = iface_.GetDelegationToken(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("GetDelegationToken", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void CancelDelegationToken_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new CancelDelegationToken_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new CancelDelegationToken_result
-                {
-                    Success = iface_.CancelDelegationToken(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("CancelDelegationToken", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
-            public void RenewDelegationToken_Process(Int32 seqid, TProtocol iprot, TProtocol oprot)
-            {
-                var args = new RenewDelegationToken_args();
-                args.Read(iprot);
-                iprot.ReadMessageEnd();
-                var result = new RenewDelegationToken_result
-                {
-                    Success = iface_.RenewDelegationToken(args.Req)
-                };
-                oprot.WriteMessageBegin(new TMessage("RenewDelegationToken", TMessageType.Reply, seqid));
-                result.Write(oprot);
-                oprot.WriteMessageEnd();
-                oprot.Transport.Flush();
-            }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class OpenSession_args : TBase
         {
             private TOpenSessionReq _req;
@@ -1252,11 +805,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -1328,10 +878,7 @@ namespace NewLife.Hive2
 
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class OpenSession_result : TBase
         {
             private TOpenSessionResp _success;
@@ -1349,11 +896,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -1426,13 +970,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class CloseSession_args : TBase
         {
             private TCloseSessionReq _req;
@@ -1450,11 +990,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -1523,13 +1060,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class CloseSession_result : TBase
         {
             private TCloseSessionResp _success;
@@ -1547,11 +1080,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -1624,13 +1154,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetInfo_args : TBase
         {
             private TGetInfoReq _req;
@@ -1648,11 +1174,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -1721,13 +1244,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetInfo_result : TBase
         {
             private TGetInfoResp _success;
@@ -1745,11 +1264,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -1822,13 +1338,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class ExecuteStatement_args : TBase
         {
             private TExecuteStatementReq _req;
@@ -1846,11 +1358,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -1919,13 +1428,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class ExecuteStatement_result : TBase
         {
             private TExecuteStatementResp _success;
@@ -1943,11 +1448,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -2020,13 +1522,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetTypeInfo_args : TBase
         {
             private TGetTypeInfoReq _req;
@@ -2044,11 +1542,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -2117,13 +1612,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetTypeInfo_result : TBase
         {
             private TGetTypeInfoResp _success;
@@ -2141,11 +1632,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -2218,13 +1706,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetCatalogs_args : TBase
         {
             private TGetCatalogsReq _req;
@@ -2242,11 +1726,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -2315,13 +1796,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetCatalogs_result : TBase
         {
             private TGetCatalogsResp _success;
@@ -2339,11 +1816,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -2416,13 +1890,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetSchemas_args : TBase
         {
             private TGetSchemasReq _req;
@@ -2440,11 +1910,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -2513,13 +1980,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetSchemas_result : TBase
         {
             private TGetSchemasResp _success;
@@ -2537,11 +2000,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -2617,10 +2077,7 @@ namespace NewLife.Hive2
 
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetTables_args : TBase
         {
             private TGetTablesReq _req;
@@ -2638,11 +2095,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -2711,13 +2165,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetTables_result : TBase
         {
             private TGetTablesResp _success;
@@ -2735,11 +2185,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -2812,13 +2259,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetTableTypes_args : TBase
         {
             private TGetTableTypesReq _req;
@@ -2836,11 +2279,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -2909,13 +2349,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetTableTypes_result : TBase
         {
             private TGetTableTypesResp _success;
@@ -2933,11 +2369,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -3010,13 +2443,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetColumns_args : TBase
         {
             private TGetColumnsReq _req;
@@ -3034,11 +2463,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -3107,13 +2533,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetColumns_result : TBase
         {
             private TGetColumnsResp _success;
@@ -3131,11 +2553,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -3208,13 +2627,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetFunctions_args : TBase
         {
             private TGetFunctionsReq _req;
@@ -3232,11 +2647,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -3305,13 +2717,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetFunctions_result : TBase
         {
             private TGetFunctionsResp _success;
@@ -3329,11 +2737,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -3406,13 +2811,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetOperationStatus_args : TBase
         {
             private TGetOperationStatusReq _req;
@@ -3430,11 +2831,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -3503,13 +2901,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetOperationStatus_result : TBase
         {
             private TGetOperationStatusResp _success;
@@ -3527,11 +2921,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -3604,13 +2995,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class CancelOperation_args : TBase
         {
             private TCancelOperationReq _req;
@@ -3628,11 +3015,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -3701,13 +3085,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class CancelOperation_result : TBase
         {
             private TCancelOperationResp _success;
@@ -3725,11 +3105,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -3802,13 +3179,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class CloseOperation_args : TBase
         {
             private TCloseOperationReq _req;
@@ -3826,11 +3199,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -3899,13 +3269,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class CloseOperation_result : TBase
         {
             private TCloseOperationResp _success;
@@ -3925,9 +3291,7 @@ namespace NewLife.Hive2
 
 
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -4000,13 +3364,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetResultSetMetadata_args : TBase
         {
             private TGetResultSetMetadataReq _req;
@@ -4024,11 +3384,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -4097,13 +3454,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetResultSetMetadata_result : TBase
         {
             private TGetResultSetMetadataResp _success;
@@ -4121,11 +3474,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -4198,13 +3548,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class FetchResults_args : TBase
         {
             private TFetchResultsReq _req;
@@ -4222,11 +3568,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -4295,13 +3638,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class FetchResults_result : TBase
         {
             private TFetchResultsResp _success;
@@ -4319,11 +3658,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -4396,13 +3732,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetDelegationToken_args : TBase
         {
             private TGetDelegationTokenReq _req;
@@ -4420,11 +3752,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -4493,13 +3822,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class GetDelegationToken_result : TBase
         {
             private TGetDelegationTokenResp _success;
@@ -4517,11 +3842,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -4594,13 +3916,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class CancelDelegationToken_args : TBase
         {
             private TCancelDelegationTokenReq _req;
@@ -4618,11 +3936,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -4691,13 +4006,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class CancelDelegationToken_result : TBase
         {
             private TCancelDelegationTokenResp _success;
@@ -4715,11 +4026,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
@@ -4792,13 +4100,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class RenewDelegationToken_args : TBase
         {
             private TRenewDelegationTokenReq _req;
@@ -4816,11 +4120,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean req;
@@ -4889,13 +4190,9 @@ namespace NewLife.Hive2
                 sb.Append(")");
                 return sb.ToString();
             }
-
         }
 
-
-#if !SILVERLIGHT
         [Serializable]
-#endif
         public partial class RenewDelegationToken_result : TBase
         {
             private TRenewDelegationTokenResp _success;
@@ -4913,11 +4210,8 @@ namespace NewLife.Hive2
                 }
             }
 
-
             public Isset __isset;
-#if !SILVERLIGHT
             [Serializable]
-#endif
             public struct Isset
             {
                 public Boolean success;
