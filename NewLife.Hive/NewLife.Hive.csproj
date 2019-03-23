@@ -1,38 +1,75 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
+    <AssemblyName>NewLife.Hive</AssemblyName>
+    <RootNamespace>NewLife.Hive</RootNamespace>
+    <AssemblyTitle>读写Hive</AssemblyTitle>
+    <Description>纯托管读写Hive，通过Thrift实现协议</Description>
+    <Company>新生命开发团队</Company>
+    <Copyright>©2002-2019 新生命开发团队</Copyright>
+    <Version>1.0.2019.0323</Version>
+    <FileVersion>1.0.2019.0323</FileVersion>
+    <AssemblyVersion>1.0.*</AssemblyVersion>
+    <Deterministic>false</Deterministic>
+    <OutputPath>..\Bin</OutputPath>
+    <DocumentationFile>$(OutputPath)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>$(AssemblyName)</PackageId>
+    <Authors>$(Company)</Authors>
+    <ProjectUrl>https://github.com/NewLifeX</ProjectUrl>
+    <PackageIconUrl>http://www.NewLifeX.com/favicon.ico</PackageIconUrl>
+    <RepositoryUrl>https://github.com/NewLifeX/NewLife.Hive</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>新生命团队;X组件;NewLife;$(AssemblyName)</PackageTags>
+    <PackageReleaseNotes>纯托管读写Hive，通过Thrift实现协议</PackageReleaseNotes>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSource>true</IncludeSource>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Thrift\Collections\**" />
-    <Compile Remove="Thrift\Server\**" />
-    <EmbeddedResource Remove="Thrift\Collections\**" />
-    <EmbeddedResource Remove="Thrift\Server\**" />
-    <None Remove="Thrift\Collections\**" />
-    <None Remove="Thrift\Server\**" />
+    <Compile Remove="Thrift\**" />
+    <EmbeddedResource Remove="Thrift\**" />
+    <None Remove="Thrift\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <DefineConstants>$(DefineConstants);NETSTANDARD2_0;__CORE__</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
+    <DefineConstants>$(DefineConstants);__WIN__</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
     <Compile Remove="Hive2\TCLIService.Constants.cs" />
-    <Compile Remove="Thrift\Protocol\TBase64Utils.cs" />
-    <Compile Remove="Thrift\Protocol\TCompactProtocol.cs" />
-    <Compile Remove="Thrift\Protocol\TJSONProtocol.cs" />
-    <Compile Remove="Thrift\Protocol\TMultiplexedProcessor.cs" />
-    <Compile Remove="Thrift\Protocol\TMultiplexedProtocol.cs" />
-    <Compile Remove="Thrift\Protocol\TProtocolDecorator.cs" />
-    <Compile Remove="Thrift\Transport\TBufferedTransport.cs" />
-    <Compile Remove="Thrift\Transport\TFramedTransport.cs" />
-    <Compile Remove="Thrift\Transport\THttpClient.cs" />
-    <Compile Remove="Thrift\Transport\THttpHandler.cs" />
-    <Compile Remove="Thrift\Transport\TMemoryBuffer.cs" />
-    <Compile Remove="Thrift\Transport\TServerSocket.cs" />
-    <Compile Remove="Thrift\Transport\TServerTransport.cs" />
-    <Compile Remove="Thrift\Transport\TTransportFactory.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Thrift\Transport\ByteArrayOutputStream.cs" />
+    <Compile Include="Thrift\Transport\EncodingUtils.cs" />
+    <Compile Include="Thrift\Transport\PlainMechanism.cs" />
+    <Compile Include="Thrift\Transport\SASLClient.cs" />
+    <Compile Include="Thrift\Transport\SaslStatus.cs" />
+    <Compile Include="Thrift\Transport\TMemoryInputTransport .cs" />
+    <Compile Include="Thrift\Transport\TSaslClientTransport .cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NewLife.Core" Version="8.1.2019.320" />
+    <PackageReference Include="NewLife.Thrift" Version="0.13.2019.323" />
   </ItemGroup>
 
 </Project>

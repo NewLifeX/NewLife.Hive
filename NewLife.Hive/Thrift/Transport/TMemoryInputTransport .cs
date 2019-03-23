@@ -1,6 +1,7 @@
 ﻿using System;
+using NewLife.Thrift.Transport;
 
-namespace Thrift.Transport
+namespace NewLife.Thrift.Transport
 {
     class TMemoryInputTransport : TTransport
     {

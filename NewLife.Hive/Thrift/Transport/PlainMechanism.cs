@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Thrift.Transport
+namespace NewLife.Thrift.Transport
 {
     public class PlainMechanism
     {
-        public String Name { get { return "PLAIN"; } }
+        public String Name => "PLAIN";
         protected String _userName;
         protected String _password;
         private readonly Byte _sign = 0x00;

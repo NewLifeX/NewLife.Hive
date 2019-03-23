@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Thrift.Transport
+namespace NewLife.Thrift.Transport
 {
     public class SASLClient : IDisposable
     {

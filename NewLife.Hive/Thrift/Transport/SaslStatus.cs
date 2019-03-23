@@ -1,4 +1,4 @@
-﻿namespace Thrift.Transport
+﻿namespace NewLife.Thrift.Transport
 {
     public enum SaslStatus
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using NewLife.Hive2;
-using Thrift.Protocol;
-using Thrift.Transport;
+using NewLife.Thrift.Protocol;
+using NewLife.Thrift.Transport;
 
 namespace NewLife.Hive
 {

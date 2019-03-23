@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Thrift.Transport
+namespace NewLife.Thrift.Transport
 {
     public static class EncodingUtils
     {

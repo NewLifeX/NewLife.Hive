@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using NewLife.Thrift.Transport;
 
-namespace Thrift.Transport
+namespace NewLife.Thrift.Transport
 {
     public class TSaslClientTransport : TTransport
     {

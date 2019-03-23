@@ -1,7 +1,7 @@
 using System;
 using System.Text;
-using Thrift;
-using Thrift.Protocol;
+using NewLife.Thrift;
+using NewLife.Thrift.Protocol;
 
 namespace NewLife.Hive2
 {
