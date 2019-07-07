@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard2.0;net40</TargetFrameworks>
     <AssemblyName>NewLife.Hive</AssemblyName>
     <RootNamespace>NewLife.Hive</RootNamespace>
     <AssemblyTitle>读写Hive</AssemblyTitle>
     <Description>纯托管读写Hive，通过Thrift实现协议</Description>
     <Company>新生命开发团队</Company>
     <Copyright>©2002-2019 新生命开发团队</Copyright>
-    <Version>1.0.2019.0323</Version>
-    <FileVersion>1.0.2019.0323</FileVersion>
+    <Version>1.0.2019.0707</Version>
+    <FileVersion>1.0.2019.0707</FileVersion>
     <AssemblyVersion>1.0.*</AssemblyVersion>
     <Deterministic>false</Deterministic>
     <OutputPath>..\Bin</OutputPath>
@@ -24,7 +24,7 @@
     <RepositoryUrl>https://github.com/NewLifeX/NewLife.Hive</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>新生命团队;X组件;NewLife;$(AssemblyName)</PackageTags>
-    <PackageReleaseNotes>纯托管读写Hive，通过Thrift实现协议</PackageReleaseNotes>
+    <PackageReleaseNotes>支持NET40</PackageReleaseNotes>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -35,10 +35,6 @@
     <Compile Remove="Thrift\**" />
     <EmbeddedResource Remove="Thrift\**" />
     <None Remove="Thrift\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
@@ -68,8 +64,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NewLife.Core" Version="8.1.2019.320" />
-    <PackageReference Include="NewLife.Thrift" Version="0.13.2019.323" />
+    <PackageReference Include="NewLife.Core" Version="8.2.2019.706" />
+    <PackageReference Include="NewLife.Thrift" Version="0.13.2019.707" />
   </ItemGroup>
 
 </Project>
