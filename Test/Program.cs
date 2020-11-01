@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using NewLife;
 using NewLife.Hive;
 using NewLife.Log;
 
