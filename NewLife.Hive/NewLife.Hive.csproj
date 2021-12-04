@@ -6,9 +6,9 @@
     <AssemblyTitle>读写Hive</AssemblyTitle>
     <Description>纯托管读写Hive，通过Thrift实现协议</Description>
     <Company>新生命开发团队</Company>
-    <Copyright>©2002-2020 新生命开发团队</Copyright>
-    <Version>1.0.2020.0601</Version>
-    <FileVersion>1.0.2020.0601</FileVersion>
+    <Copyright>©2002-2021 新生命开发团队</Copyright>
+    <Version>1.0.2021.1204</Version>
+    <FileVersion>1.0.2021.1204</FileVersion>
     <AssemblyVersion>1.0.*</AssemblyVersion>
     <Deterministic>false</Deterministic>
     <OutputPath>..\Bin</OutputPath>
@@ -64,8 +64,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NewLife.Core" Version="8.10.2020.1101" />
-    <PackageReference Include="NewLife.Thrift" Version="0.13.2020.601" />
+    <PackageReference Include="NewLife.Core" Version="8.11.2021.1204" />
+    <PackageReference Include="NewLife.Thrift" Version="0.13.2021.1204" />
   </ItemGroup>
 
 </Project>
