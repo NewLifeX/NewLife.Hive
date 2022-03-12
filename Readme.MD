@@ -1,4 +1,12 @@
-﻿纯托管读写Hive，通过Thrift实现协议
+﻿# NewLife.Hive - Hive客户端组件
+
+![GitHub top language](https://img.shields.io/github/languages/top/newlifex/newlife.hive?logo=github)
+![GitHub License](https://img.shields.io/github/license/newlifex/newlife.hive?logo=github)
+![Nuget Downloads](https://img.shields.io/nuget/dt/newlife.hive?logo=nuget)
+![Nuget](https://img.shields.io/nuget/v/newlife.hive?logo=nuget)
+![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/newlife.hive?label=dev%20nuget&logo=nuget)
+
+纯托管读写Hive，通过Thrift实现协议
 
 ## 新生命开源项目矩阵
 各项目默认支持net4.5/net4.0/netstandard2.0  
