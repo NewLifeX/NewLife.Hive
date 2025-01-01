@@ -1,4 +1,4 @@
-﻿# NewLife.Hive - Hive客户端组件
+# NewLife.Hive - Hive客户端组件
 
 ![GitHub top language](https://img.shields.io/github/languages/top/newlifex/newlife.hive?logo=github)
 ![GitHub License](https://img.shields.io/github/license/newlifex/newlife.hive?logo=github)
